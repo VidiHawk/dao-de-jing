@@ -1,5 +1,15 @@
-$border-radius: 20px;
+@font-face {
+  font-family: 'MyFonts';
+  src: url("SIMKAI.TTF");
+  unicode-range: U+4E00-9FFF;
+}
 
+@font-face {
+  font-family: 'MyFonts';
+  src: url('ARIAL.TTF');
+}
+
+$border-radius: 20px;
 $primary: #709fdc;
 $base: #071739;
 $shadow-color:  #274684;
@@ -11,17 +21,18 @@ $time-line-width: 240px;
 $transition: .3s all ease;
 
 body{
-  font-family: 'Rubik', sans-serif;
+  // font-family: 'Rubik', sans-serif;
+  font-family: 'MyFonts', sans-serif;
   color: $base;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background: #000;
-  h1{
-    font-size: 36px;
-    margin-bottom: 0;
-  }
+  // h1{
+  //   font-size: 36px;
+  //   margin-bottom: 0;
+  // }
   .card{
     display: flex;
     flex-direction: column;
@@ -32,11 +43,11 @@ body{
     margin-top: 40px;
     border-radius: $border-radius;
     color: $white;
-    font-weight: 100;
+    // font-weight: 100;
     box-shadow: 0px 0px 70px 0px $shadow-color;
     background: $base;
     overflow: hidden;
-    .current-song{
+    .current-track{
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -49,31 +60,31 @@ body{
       audio{
         display: none;
       }
-      .img-wrap{
+      .text-wrap{
         position: relative;
         margin: 0 auto;
-        width: 270px;
-        height: 200px;
-        overflow: hidden;
+        width: 300px;
+        height: 300px;
+        text-align: center;
+        overflow-y: scroll;
         border-radius: 20px;
         box-shadow: 0px 10px 40px 0px $lighter-shadow;
-        img {
-          width: auto;
-          height: 100%;
-        }
+        // img {
+        //   width: auto;
+        //   height: 100%;
+        // }
       }
-      .text-card{
-        text-align: center;
-        font-family: 'KaiTi';
-        font-size:x-large;
-      }
-      .song-name{
+      // .text-card{
+      //   text-align: center;
+      //   font-size:x-large;
+      // }
+      .track-name{
         margin-top: 30px;
         font-size: 22px;
       }
-      .song-autor{
-        color: $primary;
-      }
+      // .track-autor{
+      //   color: $primary;
+      // }
       .time{
         display: flex;
         justify-content: space-between;
@@ -163,6 +174,7 @@ body{
             width: 50px;
             height: 50px;
             border: 1px solid #e2e2e2;
+            background-image: url("../img/play.svg");
             &:hover{
               left: 0;
               box-shadow: 0px 0px 15px 0px  $lighter-shadow;
@@ -171,9 +183,18 @@ body{
               transform: translateX(2px);
             }
           }
-          &.prev-next{
+          &.prev{
             width: 35px;
             height: 35px;
+            background-image: url("../img/rewind.svg");
+            &:hover{
+              transform: scale(1.2);
+            }
+          }
+          &.next{
+            width: 35px;
+            height: 35px;
+            background-image: url("../img/fforward.svg");
             &:hover{
               transform: scale(1.2);
             }
@@ -212,22 +233,24 @@ body{
           content: '';
           display: block;
           position: absolute;
-          left:17px;
-          width: 57px;
-          height: 57px;
+          left:125px;
+          width: 30px;
+          height: 30px;
           border-radius: calc( #{$border-radius} - 10px);
           font-size: 16px;
           animation: play 2s linear infinite;
-          background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 56 56' style='enable-background:new 0 0 56 56;' xml:space='preserve'%3E%3Cpath style='fill:%23071739;' d='M47.799,8.201c-10.935-10.935-28.663-10.935-39.598,0c-10.935,10.935-10.935,28.663,0,39.598 c10.935,10.935,28.663,10.935,39.598,0C58.734,36.864,58.734,19.136,47.799,8.201z M32.95,32.95c-2.734,2.734-7.166,2.734-9.899,0 c-2.734-2.734-2.734-7.166,0-9.899s7.166-2.734,9.899,0S35.683,30.216,32.95,32.95z'/%3E%3Cpath style='fill:%23E7ECED;' d='M35.778,20.222c-4.296-4.296-11.261-4.296-15.556,0c-4.296,4.296-4.296,11.261,0,15.556 c4.296,4.296,11.261,4.296,15.556,0C40.074,31.482,40.074,24.518,35.778,20.222z M30.121,30.121c-1.172,1.172-3.071,1.172-4.243,0 s-1.172-3.071,0-4.243s3.071-1.172,4.243,0S31.293,28.95,30.121,30.121z'/%3E%3Cg%3E%3Cpath style='fill:%23709fdc;' d='M35.778,35.778c-0.76,0.76-1.607,1.378-2.504,1.87l8.157,14.92c2.284-1.25,4.434-2.835,6.368-4.769 c1.934-1.934,3.519-4.084,4.769-6.368l-14.92-8.157C37.157,34.172,36.538,35.018,35.778,35.778z'/%3E%3Cpath style='fill:%23709fdc;' d='M20.222,20.222c0.76-0.76,1.607-1.378,2.504-1.87l-8.157-14.92c-2.284,1.25-4.434,2.835-6.368,4.769 s-3.519,4.084-4.769,6.368l14.92,8.157C18.843,21.828,19.462,20.982,20.222,20.222z'/%3E%3C/g%3E%3C/svg%3E");
-        }
-        .track-img{
-          filter: opacity(70%);
-        }
+          
+          background-image: url("../img/disk.svg");
+        //   background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 56 56' style='enable-background:new 0 0 56 56;' xml:space='preserve'%3E%3Cpath style='fill:%23071739;' d='M47.799,8.201c-10.935-10.935-28.663-10.935-39.598,0c-10.935,10.935-10.935,28.663,0,39.598 c10.935,10.935,28.663,10.935,39.598,0C58.734,36.864,58.734,19.136,47.799,8.201z M32.95,32.95c-2.734,2.734-7.166,2.734-9.899,0 c-2.734-2.734-2.734-7.166,0-9.899s7.166-2.734,9.899,0S35.683,30.216,32.95,32.95z'/%3E%3Cpath style='fill:%23E7ECED;' d='M35.778,20.222c-4.296-4.296-11.261-4.296-15.556,0c-4.296,4.296-4.296,11.261,0,15.556 c4.296,4.296,11.261,4.296,15.556,0C40.074,31.482,40.074,24.518,35.778,20.222z M30.121,30.121c-1.172,1.172-3.071,1.172-4.243,0 s-1.172-3.071,0-4.243s3.071-1.172,4.243,0S31.293,28.95,30.121,30.121z'/%3E%3Cg%3E%3Cpath style='fill:%23709fdc;' d='M35.778,35.778c-0.76,0.76-1.607,1.378-2.504,1.87l8.157,14.92c2.284-1.25,4.434-2.835,6.368-4.769 c1.934-1.934,3.519-4.084,4.769-6.368l-14.92-8.157C37.157,34.172,36.538,35.018,35.778,35.778z'/%3E%3Cpath style='fill:%23709fdc;' d='M20.222,20.222c0.76-0.76,1.607-1.378,2.504-1.87l-8.157-14.92c-2.284,1.25-4.434,2.835-6.368,4.769 s-3.519,4.084-4.769,6.368l14.92,8.157C18.843,21.828,19.462,20.982,20.222,20.222z'/%3E%3C/g%3E%3C/svg%3E");
+         }
+        // .track-img{
+        //   filter: opacity(70%);
+        // }
       }
-    .track-img{
-      width: 90px;
-      border-radius: calc( #{$border-radius} - 10px);
-    }
+    // .track-img{
+    //   width: 90px;
+    //   border-radius: calc( #{$border-radius} - 10px);
+    // }
     
         .track-discr{
           margin-left: 15px;
@@ -238,11 +261,11 @@ body{
             font-size: 17px;
             margin-top: 8px;
           }
-          .track-author{
-            margin-top: 8px;
-            font-weight: 300;
-            color: $primary;
-          }
+          // .track-author{
+          //   margin-top: 8px;
+          //   font-weight: 300;
+          //   color: $primary;
+          // }
         }
 
         .track-duration{
@@ -261,21 +284,23 @@ body{
 
 
 
-.fa-instagram{
-  position: absolute;
-  color: $base;
-  top: 3%;
-  right: 2%;
-  font-size: 38px;
-}
-.fa-instagram:hover{
-  font-size: 42px;
-  color: $white;
-  transition: all .1s linear;
-  cursor: pointer;
-}
+// .fa-instagram{
+//   position: absolute;
+//   color: $base;
+//   top: 3%;
+//   right: 2%;
+//   font-size: 38px;
+// }
+// .fa-instagram:hover{
+//   font-size: 42px;
+//   color: $white;
+//   transition: all .1s linear;
+//   cursor: pointer;
+// }
 
-
+.text-wrap::-webkit-scrollbar {
+  width: 5px;
+}
 
 .play-list::-webkit-scrollbar {
     width: 5px;

@@ -1,7 +1,7 @@
 import "../css/player.scss";
 import React from "react";
-// import Chapter from "../content/chapter1";
-import * as allContent from "../content/chapter1";
+import * as allContent from "../content/chapters";
+import { marked } from "marked";
 
 function importAll(r) {
   let allFiles = {};
@@ -13,47 +13,49 @@ function importAll(r) {
 
 const allAudio = importAll(require.context("../audio", false, /\.(mp3)$/));
 
-// console.log(allContent.Chapter1);
-
 class Player extends React.Component {
   state = {
-    index: 3,
+    index: 0,
     currentTime: "0:00",
     audioList: [
       {
         name: "道德经",
-        author: "",
         audio: allAudio["0.mp3"],
         duration: "0:14",
       },
       {
         name: "第一章",
-        author: "",
         audio: allAudio["1.mp3"],
         duration: "0:33",
       },
       {
         name: "第二章",
-        author: "",
         audio: allAudio["2.mp3"],
         duration: "0:45",
       },
       {
         name: "第三章",
-        author: "",
         audio: allAudio["3.mp3"],
         duration: "0:34",
       },
       {
-        name: "Slow cinematic",
-        author: "author",
-        img: "https://www.bensound.com/bensound-img/slowmotion.jpg",
-        audio:
-          "https://www.bensound.com/bensound-music/bensound-slowmotion.mp3",
-        duration: "3:26",
+        name: "第十四章",
+        audio: allAudio["14.mp3"],
+        duration: "0:45",
+      },
+      {
+        name: "第十五章",
+        audio: allAudio["15.mp3"],
+        duration: "0:46",
+      },
+      {
+        name: "第十六章",
+        audio: allAudio["16.mp3"],
+        duration: "0:37",
       },
     ],
     pause: false,
+    translation: false,
   };
 
   componentDidMount() {
@@ -62,6 +64,7 @@ class Player extends React.Component {
     this.timelineRef.addEventListener("click", this.changeCurrentTime, false);
     this.timelineRef.addEventListener("mousemove", this.hoverTimeLine, false);
     this.timelineRef.addEventListener("mouseout", this.resetTimeLine, false);
+    // this.timelineRef.addEventListener("fetch", this.fetchText, false);
   }
 
   componentWillUnmount() {
@@ -70,23 +73,19 @@ class Player extends React.Component {
     this.timelineRef.removeEventListener("click", this.changeCurrentTime);
     this.timelineRef.removeEventListener("mousemove", this.hoverTimeLine);
     this.timelineRef.removeEventListener("mouseout", this.resetTimeLine);
+    // this.timelineRef.removeEventListener("fetch", this.fetchText);
   }
 
   hoverTimeLine = (e) => {
     const duration = this.playerRef.duration;
-
     const playheadWidth = this.timelineRef.offsetWidth;
-
     const offsetWidht = this.timelineRef.offsetLeft;
     const userClickWidht = e.clientX - offsetWidht;
     const userClickWidhtInPercent = (userClickWidht * 100) / playheadWidth;
-
     if (userClickWidhtInPercent <= 100) {
       this.hoverPlayheadRef.style.width = userClickWidhtInPercent + "%";
     }
-
     const time = (duration * userClickWidhtInPercent) / 100;
-
     if (time >= 0 && time <= duration) {
       this.hoverPlayheadRef.dataset.content = this.formatTime(time);
     }
@@ -94,13 +93,10 @@ class Player extends React.Component {
 
   changeCurrentTime = (e) => {
     const duration = this.playerRef.duration;
-
     const playheadWidth = this.timelineRef.offsetWidth;
     const offsetWidht = this.timelineRef.offsetLeft;
     const userClickWidht = e.clientX - offsetWidht;
-
     const userClickWidhtInPercent = (userClickWidht * 100) / playheadWidth;
-
     this.playheadRef.style.width = userClickWidhtInPercent + "%";
     this.playerRef.currentTime = (duration * userClickWidhtInPercent) / 100;
   };
@@ -124,11 +120,8 @@ class Player extends React.Component {
   formatTime = (currentTime) => {
     const minutes = Math.floor(currentTime / 60);
     let seconds = Math.floor(currentTime % 60);
-
     seconds = seconds >= 10 ? seconds : "0" + (seconds % 60);
-
     const formatTime = minutes + ":" + seconds;
-
     return formatTime;
   };
 
@@ -141,7 +134,6 @@ class Player extends React.Component {
 
   nextSong = () => {
     const { audioList, index, pause } = this.state;
-
     this.setState({
       index: (index + 1) % audioList.length,
     });
@@ -153,7 +145,6 @@ class Player extends React.Component {
 
   prevSong = () => {
     const { audioList, index, pause } = this.state;
-
     this.setState({
       index: (index + audioList.length - 1) % audioList.length,
     });
@@ -179,58 +170,79 @@ class Player extends React.Component {
 
   clickAudio = (key) => {
     const { pause } = this.state;
-
     this.setState({
       index: key,
     });
-
     this.updatePlayer();
     if (pause) {
       this.playerRef.play();
     }
   };
 
-  translateText = () => {
+  fetchText = () => {
     const { index } = this.state;
-    const currentChapter = `Chapter${index}`;
-    const Content = allContent[currentChapter];
+    const mandarinText = require(`../content/english/${index}.md`);
+    const englishText = require(`../content/mandarin/${index}.md`);
+    fetch(mandarinText)
+      .then((response) => {
+        return response.text();
+      })
+      .then((text) => {
+        this.setState({
+          mandarin: marked(text),
+        });
+      });
+    fetch(englishText)
+      .then((response) => {
+        return response.text();
+      })
+      .then((text) => {
+        this.setState({
+          english: marked(text),
+        });
+      });
+  };
 
-    console.log("you clicked!", currentChapter);
-
-    const x = document.getElementById("img-wrap");
-    console.log("html:", x.innerHTML);
-    if (x.innerHTML === "Hello") {
-      x.innerHTML = "Swapped text!";
-    } else {
-      x.innerHTML = "Hello";
-    }
+  toggleText = () => {
+    const { translation } = this.state;
+    this.setState({
+      translation: !translation,
+    });
   };
 
   render() {
-    const { audioList, index, currentTime, pause } = this.state;
+    const {
+      audioList,
+      index,
+      currentTime,
+      pause,
+      english,
+      mandarin,
+      translation,
+    } = this.state;
     const currentTrack = audioList[index];
-    const currentChapter = `Chapter${index}`;
-    const Content = allContent[currentChapter];
+    // const currentChapter = translation ? `Chapter${index}T` : `Chapter${index}`;
+    // const Content = allContent[currentChapter];
+    this.fetchText();
+    const textContent = translation ? mandarin : english;
 
     return (
       <div className="card">
-        <div className="current-song">
+        <div className="current-track">
           <audio ref={(ref) => (this.playerRef = ref)}>
             <source src={currentTrack.audio} type="audio/ogg" />
             Your browser does not support the audio element.
           </audio>
-          <div className="img-wrap" onClick={this.translateText}>
-            Hello
-            {/* <div id="myDIV"><Content /></div> */}
+          <div className="text-wrap" onClick={this.toggleText}>
+            <article
+              dangerouslySetInnerHTML={{ __html: textContent }}
+            ></article>
           </div>
-          <span className="song-name">{currentTrack.name}</span>
-          <span className="song-autor">{currentTrack.author}</span>
-
+          <span className="track-name">{currentTrack.name}</span>
           <div className="time">
             <div className="current-time">{currentTime}</div>
             <div className="end-time">{currentTrack.duration}</div>
           </div>
-
           <div ref={(ref) => (this.timelineRef = ref)} id="timeline">
             <div ref={(ref) => (this.playheadRef = ref)} id="playhead"></div>
             <div
@@ -239,15 +251,10 @@ class Player extends React.Component {
               data-content="0:00"
             ></div>
           </div>
-
           <div className="controls">
-            <button
-              onClick={this.prevSong}
-              className="prev prev-next current-btn"
-            >
+            <button onClick={this.prevSong} className="prev prev current-btn">
               <i className="fas fa-backward"></i>
             </button>
-
             <button onClick={this.playOrPause} className="play current-btn">
               {!pause ? (
                 <i className="fas fa-play"></i>
@@ -255,16 +262,13 @@ class Player extends React.Component {
                 <i className="fas fa-pause"></i>
               )}
             </button>
-            <button
-              onClick={this.nextSong}
-              className="next prev-next current-btn"
-            >
+            <button onClick={this.nextSong} className="next next current-btn">
               <i className="fas fa-forward"></i>
             </button>
           </div>
         </div>
         <div className="play-list">
-          {audioList.map((music, key = 0) => (
+          {audioList.map((track, key = 0) => (
             <div
               key={key}
               onClick={() => this.clickAudio(key)}
@@ -274,13 +278,11 @@ class Player extends React.Component {
                 (index === key && pause ? "play-now" : "")
               }
             >
-              <img className="track-img" src={music.img} />
               <div className="track-discr">
-                <span className="track-name">{music.name}</span>
-                <span className="track-author">{music.author}</span>
+                <span className="track-name">{track.name}</span>
               </div>
               <span className="track-duration">
-                {index === key ? currentTime : music.duration}
+                {index === key ? currentTime : track.duration}
               </span>
             </div>
           ))}
