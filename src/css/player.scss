@@ -21,7 +21,6 @@ $time-line-width: 240px;
 $transition: .3s all ease;
 
 body{
-  // font-family: 'Rubik', sans-serif;
   font-family: 'MyFonts', sans-serif;
   color: $base;
   display: flex;
@@ -38,9 +37,10 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 371px;
-    padding: 0 5px;
-    margin-top: 40px;
+    // max-width: 371px;
+    max-width: 90pc;
+    padding: 0 2px;
+    margin-top: 20px;
     border-radius: $border-radius;
     color: $white;
     // font-weight: 100;
@@ -52,7 +52,7 @@ body{
       flex-direction: column;
       align-items: center;
       width: 100%;
-      padding: 20px 0px;
+      padding: 5px 0px;
       border-radius: $border-radius;
       color: $base;
       background: $white;
@@ -63,12 +63,14 @@ body{
       .text-wrap{
         position: relative;
         margin: 0 auto;
-        width: 300px;
-        height: 300px;
+        // width: 300px;
+        width: 90pc;
+        height: 350px;
         text-align: center;
         overflow-y: scroll;
         border-radius: 20px;
         box-shadow: 0px 10px 40px 0px $lighter-shadow;
+        // font-size: 20pt;
         // img {
         //   width: auto;
         //   height: 100%;
@@ -79,7 +81,7 @@ body{
       //   font-size:x-large;
       // }
       .track-name{
-        margin-top: 30px;
+        margin-top: 20px;
         font-size: 22px;
       }
       // .track-autor{
@@ -88,7 +90,7 @@ body{
       .time{
         display: flex;
         justify-content: space-between;
-        margin-top: 10px;
+        // margin-top: 10px;
         width: $time-line-width;
       }
       #timeline{
@@ -181,6 +183,9 @@ body{
             }
             .fa-play{
               transform: translateX(2px);
+            }
+            .fa-pause{
+              background-image: url("../img/rewind.svg");
             }
           }
           &.prev{

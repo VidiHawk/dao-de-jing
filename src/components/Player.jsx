@@ -79,13 +79,13 @@ class Player extends React.Component {
   hoverTimeLine = (e) => {
     const duration = this.playerRef.duration;
     const playheadWidth = this.timelineRef.offsetWidth;
-    const offsetWidht = this.timelineRef.offsetLeft;
-    const userClickWidht = e.clientX - offsetWidht;
-    const userClickWidhtInPercent = (userClickWidht * 100) / playheadWidth;
-    if (userClickWidhtInPercent <= 100) {
-      this.hoverPlayheadRef.style.width = userClickWidhtInPercent + "%";
+    const offsetWidth = this.timelineRef.offsetLeft;
+    const userClickWidht = e.clientX - offsetWidth;
+    const userClickWidthInPercent = (userClickWidht * 100) / playheadWidth;
+    if (userClickWidthInPercent <= 100) {
+      this.hoverPlayheadRef.style.width = userClickWidthInPercent + "%";
     }
-    const time = (duration * userClickWidhtInPercent) / 100;
+    const time = (duration * userClickWidthInPercent) / 100;
     if (time >= 0 && time <= duration) {
       this.hoverPlayheadRef.dataset.content = this.formatTime(time);
     }
@@ -94,11 +94,11 @@ class Player extends React.Component {
   changeCurrentTime = (e) => {
     const duration = this.playerRef.duration;
     const playheadWidth = this.timelineRef.offsetWidth;
-    const offsetWidht = this.timelineRef.offsetLeft;
-    const userClickWidht = e.clientX - offsetWidht;
-    const userClickWidhtInPercent = (userClickWidht * 100) / playheadWidth;
-    this.playheadRef.style.width = userClickWidhtInPercent + "%";
-    this.playerRef.currentTime = (duration * userClickWidhtInPercent) / 100;
+    const offsetWidth = this.timelineRef.offsetLeft;
+    const userClickWidht = e.clientX - offsetWidth;
+    const userClickWidthInPercent = (userClickWidht * 100) / playheadWidth;
+    this.playheadRef.style.width = userClickWidthInPercent + "%";
+    this.playerRef.currentTime = (duration * userClickWidthInPercent) / 100;
   };
 
   resetTimeLine = () => {
