@@ -23,6 +23,7 @@
 
 
 import subprocess
+import datetime
 import ffmpeg
 from pprint import pprint  # for printing Python dictionaries in a human-readable way
 
@@ -45,8 +46,8 @@ slices = [
     ["00:00:00", "00:00:14"],
     ["00:00:14", "00:00:48"],
     ["00:00:48", "00:01:33"],
-    ["00:01:33", "00:02:07"],
-    ["00:02:07", "00:02:30.5"],
+    ["00:01:33", "00:02:07.5"],  # changed
+    ["00:02:07.5", "00:02:30.5"],  # changed
     ["00:02:30.5", "00:02:55"],
     ["00:02:55", "00:03:10"],
     ["00:03:10", "00:03:35"],
@@ -66,6 +67,22 @@ slices = [
 ]
 
 
+def durations():
+    duration_list = []
+    for i in range(len(slices)):
+        mysubtract = datetime.timedelta()
+        indtime = slices[i][1]
+        (h, m, s) = indtime.split(":")
+        a = datetime.timedelta(minutes=int(float(m)), seconds=int(float(s)))
+        bartime = slices[i][0]
+        (h, m, s) = bartime.split(":")
+        b = datetime.timedelta(minutes=int(float(m)), seconds=int(float(s)))
+        mysubtract = a - b
+        time = str(mysubtract)[-5:]
+        duration_list.append(time)
+    print(duration_list)
+
+
 def slice():
     for i in range(len(slices)):
         start = slices[i][0]
@@ -77,5 +94,6 @@ def slice():
         print(d)
 
 
-slice()
+durations()
+# slice()
 # probe_metadata("out.mp3")

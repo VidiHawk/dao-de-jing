@@ -1,7 +1,8 @@
-import "../css/player.scss";
 import React from "react";
 import * as allContent from "../content/chapters";
 import { marked } from "marked";
+import "../css/player.scss";
+const fs = require("fs");
 
 function importAll(r) {
   let allFiles = {};
@@ -13,6 +14,46 @@ function importAll(r) {
 
 const allAudio = importAll(require.context("../audio", false, /\.(mp3)$/));
 
+const audioDurations = [
+  "00:14",
+  "00:34",
+  "00:45",
+  "00:34",
+  "00:23",
+  "00:25",
+  "00:15",
+  "00:25",
+  "00:30",
+  "00:22",
+  "00:36",
+  "00:26",
+  "00:26",
+  "00:40",
+  "00:45",
+  "00:46",
+  "00:37",
+  "00:26",
+  "00:18",
+  "00:24",
+  "01:05",
+];
+
+// const duration = parseInt(media.duration).toMMSS();
+// durationList.push[duration];
+
+// console.log(media.onload);
+
+// getDuration(allAudio["1.mp3"], (length) => {
+//   console.log("I got length " + length);
+// });
+
+// const allEnglishText = importAll(
+//   require.context("../content/mandarin", false, /\.(md)$/)
+// );
+// const importedMandarinText = importAll(
+//   require.context("../content/english", false, /\.(md)$/)
+// );
+
 class Player extends React.Component {
   state = {
     index: 0,
@@ -21,41 +62,47 @@ class Player extends React.Component {
       {
         name: "道德经",
         audio: allAudio["0.mp3"],
-        duration: "0:14",
+        duration: audioDurations[0],
       },
       {
         name: "第一章",
         audio: allAudio["1.mp3"],
-        duration: "0:33",
+        duration: audioDurations[1],
       },
       {
         name: "第二章",
         audio: allAudio["2.mp3"],
-        duration: "0:45",
+        duration: audioDurations[2],
       },
       {
         name: "第三章",
         audio: allAudio["3.mp3"],
-        duration: "0:34",
+        duration: audioDurations[3],
       },
       {
         name: "第十四章",
         audio: allAudio["14.mp3"],
-        duration: "0:45",
+        duration: audioDurations[4],
       },
       {
         name: "第十五章",
         audio: allAudio["15.mp3"],
-        duration: "0:46",
+        duration: audioDurations[5],
       },
       {
         name: "第十六章",
         audio: allAudio["16.mp3"],
-        duration: "0:37",
+        duration: audioDurations[6],
+      },
+      {
+        name: "第十七章",
+        audio: allAudio["17.mp3"],
+        duration: audioDurations[7],
       },
     ],
     pause: false,
     translation: false,
+    mandarin: "Hello",
   };
 
   componentDidMount() {
@@ -64,7 +111,6 @@ class Player extends React.Component {
     this.timelineRef.addEventListener("click", this.changeCurrentTime, false);
     this.timelineRef.addEventListener("mousemove", this.hoverTimeLine, false);
     this.timelineRef.addEventListener("mouseout", this.resetTimeLine, false);
-    // this.timelineRef.addEventListener("fetch", this.fetchText, false);
   }
 
   componentWillUnmount() {
@@ -73,7 +119,6 @@ class Player extends React.Component {
     this.timelineRef.removeEventListener("click", this.changeCurrentTime);
     this.timelineRef.removeEventListener("mousemove", this.hoverTimeLine);
     this.timelineRef.removeEventListener("mouseout", this.resetTimeLine);
-    // this.timelineRef.removeEventListener("fetch", this.fetchText);
   }
 
   hoverTimeLine = (e) => {
@@ -134,8 +179,10 @@ class Player extends React.Component {
 
   nextSong = () => {
     const { audioList, index, pause } = this.state;
+    const newIndex = (index + 1) % audioList.length;
+    this.fetchText(newIndex);
     this.setState({
-      index: (index + 1) % audioList.length,
+      index: newIndex,
     });
     this.updatePlayer();
     if (pause) {
@@ -145,8 +192,10 @@ class Player extends React.Component {
 
   prevSong = () => {
     const { audioList, index, pause } = this.state;
+    const newIndex = (index + audioList.length - 1) % audioList.length;
+    this.fetchText(newIndex);
     this.setState({
-      index: (index + audioList.length - 1) % audioList.length,
+      index: newIndex,
     });
     this.updatePlayer();
     if (pause) {
@@ -173,14 +222,15 @@ class Player extends React.Component {
     this.setState({
       index: key,
     });
+    this.fetchText(key);
     this.updatePlayer();
+
     if (pause) {
       this.playerRef.play();
     }
   };
 
-  fetchText = () => {
-    const { index } = this.state;
+  fetchText = (index) => {
     const mandarinText = require(`../content/english/${index}.md`);
     const englishText = require(`../content/mandarin/${index}.md`);
     fetch(mandarinText)
@@ -192,6 +242,7 @@ class Player extends React.Component {
           mandarin: marked(text),
         });
       });
+
     fetch(englishText)
       .then((response) => {
         return response.text();
@@ -223,20 +274,26 @@ class Player extends React.Component {
     const currentTrack = audioList[index];
     // const currentChapter = translation ? `Chapter${index}T` : `Chapter${index}`;
     // const Content = allContent[currentChapter];
-    this.fetchText();
+    // const mdFile = translation ? allEnglishText[index] : allMandarinText[index];
+    if (!mandarin) {
+      this.fetchText(index);
+      return mandarin;
+    }
     const textContent = translation ? mandarin : english;
 
     return (
       <div className="card">
         <div className="current-track">
           <audio ref={(ref) => (this.playerRef = ref)}>
-            <source src={currentTrack.audio} type="audio/ogg" />
+            {/* <source src={currentTrack.audio} type="audio/ogg" /> */}
+            <source src={allAudio[`${index}.mp3`]} type="audio/ogg" />
             Your browser does not support the audio element.
           </audio>
           <div className="text-wrap" onClick={this.toggleText}>
             <article
               dangerouslySetInnerHTML={{ __html: textContent }}
             ></article>
+            {/* <Content /> */}
           </div>
           <span className="track-name">{currentTrack.name}</span>
           <div className="time">
