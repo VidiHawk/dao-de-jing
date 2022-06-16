@@ -1,33 +1,33 @@
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490">
     <defs>
         <style>
-            .cls-1 {
+            /* .cls-1 {
                 fill: #231f20;
-            }
+            } */
 
-            :root {
-                --color: #00FF00;
+            .cls-1 {
+                --color: #FFFFFF;
             }
 
             @media (prefers-color-scheme: light) {
-                :root {
-                    --color: #0000FF;
+                .cls-1 {
+                    --color: #000000;
                 }
             }
 
             @media (prefers-color-scheme: dark) {
-                :root {
-                    --color: #FF0000;
+                .cls-1 {
+                    --color: #FFFFFF;
                 }
             }
 
-            path {
+            /* path {
                 fill: none;
                 stroke: var(--color);
                 stroke-width: 3;
                 stroke-linecap: round;
                 stroke-linejoin: round;
-            }
+            } */
         </style>
     </defs>
     <path class="cls-1"
