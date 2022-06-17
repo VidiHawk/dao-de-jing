@@ -66,32 +66,26 @@ class Player extends React.Component {
       },
       {
         name: "第一章",
-        audio: allAudio["1.mp3"],
         duration: audioDurations[1],
       },
       {
         name: "第二章",
-        audio: allAudio["2.mp3"],
         duration: audioDurations[2],
       },
       {
         name: "第三章",
-        audio: allAudio["3.mp3"],
         duration: audioDurations[3],
       },
       {
         name: "第十四章",
-        audio: allAudio["14.mp3"],
         duration: audioDurations[4],
       },
       {
         name: "第十五章",
-        audio: allAudio["15.mp3"],
         duration: audioDurations[5],
       },
       {
         name: "第十六章",
-        audio: allAudio["16.mp3"],
         duration: audioDurations[6],
       },
       {
@@ -102,7 +96,8 @@ class Player extends React.Component {
     ],
     pause: false,
     translation: false,
-    mandarin: "Hello",
+    english:
+      "Welcome! I am Fabian de Mortier, and I propose here a new translation of the Dao de Jing by Lao Zi. The Chinese version is written in simplified characters for the sake of modernity.",
   };
 
   componentDidMount() {
@@ -275,10 +270,7 @@ class Player extends React.Component {
     // const currentChapter = translation ? `Chapter${index}T` : `Chapter${index}`;
     // const Content = allContent[currentChapter];
     // const mdFile = translation ? allEnglishText[index] : allMandarinText[index];
-    if (!mandarin) {
-      this.fetchText(index);
-      return mandarin;
-    }
+
     const textContent = translation ? mandarin : english;
 
     return (
