@@ -21,13 +21,13 @@
                 }
             }
 
-            /* path {
+            path {
                 fill: yes;
                 stroke: var(--color);
                 stroke-width: 3;
                 stroke-linecap: round;
                 stroke-linejoin: round;
-            } */
+            }
         </style>
     </defs>
     <path class="cls-1"

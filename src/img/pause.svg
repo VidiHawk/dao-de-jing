@@ -1,4 +1,1 @@
-<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" class="icon" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor"
-        d="M512 64a448 448 0 110 896 448 448 0 010-896zm0 832a384 384 0 000-768 384 384 0 000 768zm-96-544q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32zm192 0q32 0 32 32v256q0 32-32 32t-32-32V384q0-32 32-32z" />
-</svg>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px;}</style></defs><path class="cls-1" d="M245,0C109.9,0,0,109.9,0,245S109.9,490,245,490,490,380.1,490,245,380.1,0,245,0Zm0,469.1C121.4,469.1,20.9,368.6,20.9,245S121.4,20.9,245,20.9,469.1,121.4,469.1,245,368.6,469.1,245,469.1Z"/><line class="cls-2" x1="196" y1="180.5" x2="196" y2="308.5"/><line class="cls-2" x1="292" y1="180.5" x2="292" y2="308.5"/></svg>

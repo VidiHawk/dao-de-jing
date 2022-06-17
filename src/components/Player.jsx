@@ -1,8 +1,7 @@
 import React from "react";
-import * as allContent from "../content/chapters";
+// import * as allContent from "../content/chapters";
 import { marked } from "marked";
 import "../css/player.scss";
-const fs = require("fs");
 
 function importAll(r) {
   let allFiles = {};
@@ -38,30 +37,30 @@ const audioDurations = [
   "01:05",
 ];
 
-// const duration = parseInt(media.duration).toMMSS();
-// durationList.push[duration];
+const introText = [];
 
-// console.log(media.onload);
+function fetchIntro(arg) {
+  const importedText = require(`../content/${arg}.md`);
+  fetch(importedText)
+    .then((response) => {
+      return response.text();
+    })
+    .then((text) => {
+      introText.push(marked(text));
+    });
+}
 
-// getDuration(allAudio["1.mp3"], (length) => {
-//   console.log("I got length " + length);
-// });
-
-// const allEnglishText = importAll(
-//   require.context("../content/mandarin", false, /\.(md)$/)
-// );
-// const importedMandarinText = importAll(
-//   require.context("../content/english", false, /\.(md)$/)
-// );
+fetchIntro("english/intro");
+fetchIntro("mandarin/intro");
 
 class Player extends React.Component {
   state = {
     index: 0,
-    currentTime: "0:00",
+    currentTime: "00:00",
     audioList: [
       {
         name: "道德经",
-        audio: allAudio["0.mp3"],
+        // audio: allAudio["0.mp3"],
         duration: audioDurations[0],
       },
       {
@@ -77,32 +76,83 @@ class Player extends React.Component {
         duration: audioDurations[3],
       },
       {
-        name: "第十四章",
+        name: "第四章",
         duration: audioDurations[4],
       },
       {
-        name: "第十五章",
+        name: "第五章",
         duration: audioDurations[5],
       },
       {
-        name: "第十六章",
+        name: "第六章",
         duration: audioDurations[6],
       },
       {
-        name: "第十七章",
-        audio: allAudio["17.mp3"],
+        name: "第七章",
         duration: audioDurations[7],
+      },
+      {
+        name: "第八章",
+        duration: audioDurations[8],
+      },
+      {
+        name: "第九章",
+        duration: audioDurations[9],
+      },
+      {
+        name: "第十章",
+        duration: audioDurations[10],
+      },
+      {
+        name: "第十一章",
+        duration: audioDurations[11],
+      },
+      {
+        name: "第十二章",
+        duration: audioDurations[12],
+      },
+      {
+        name: "第十三章",
+        duration: audioDurations[13],
+      },
+      {
+        name: "第十四章",
+        duration: audioDurations[14],
+      },
+      {
+        name: "第十五章",
+        duration: audioDurations[15],
+      },
+      {
+        name: "第十六章",
+        duration: audioDurations[16],
+      },
+      {
+        name: "第十七章",
+        duration: audioDurations[17],
+      },
+      {
+        name: "第十八章",
+        duration: audioDurations[18],
+      },
+      {
+        name: "第十九章",
+        duration: audioDurations[19],
+      },
+      {
+        name: "第二十章",
+        duration: audioDurations[20],
       },
     ],
     pause: false,
     translation: false,
-    english:
-      "Welcome! I am Fabian de Mortier, and I propose here a new translation of the Dao de Jing by Lao Zi. The Chinese version is written in simplified characters for the sake of modernity.",
+    mandarin: introText[0],
+    english: introText[1],
   };
 
   componentDidMount() {
     this.playerRef.addEventListener("timeupdate", this.timeUpdate, false);
-    this.playerRef.addEventListener("ended", this.nextSong, false);
+    this.playerRef.addEventListener("ended", this.playOrPause, false);
     this.timelineRef.addEventListener("click", this.changeCurrentTime, false);
     this.timelineRef.addEventListener("mousemove", this.hoverTimeLine, false);
     this.timelineRef.addEventListener("mouseout", this.resetTimeLine, false);
@@ -110,7 +160,7 @@ class Player extends React.Component {
 
   componentWillUnmount() {
     this.playerRef.removeEventListener("timeupdate", this.timeUpdate);
-    this.playerRef.removeEventListener("ended", this.nextSong);
+    this.playerRef.removeEventListener("ended", this.playOrPause);
     this.timelineRef.removeEventListener("click", this.changeCurrentTime);
     this.timelineRef.removeEventListener("mousemove", this.hoverTimeLine);
     this.timelineRef.removeEventListener("mouseout", this.resetTimeLine);
@@ -135,8 +185,8 @@ class Player extends React.Component {
     const duration = this.playerRef.duration;
     const playheadWidth = this.timelineRef.offsetWidth;
     const offsetWidth = this.timelineRef.offsetLeft;
-    const userClickWidht = e.clientX - offsetWidth;
-    const userClickWidthInPercent = (userClickWidht * 100) / playheadWidth;
+    const userClickWidth = e.clientX - offsetWidth;
+    const userClickWidthInPercent = (userClickWidth * 100) / playheadWidth;
     this.playheadRef.style.width = userClickWidthInPercent + "%";
     this.playerRef.currentTime = (duration * userClickWidthInPercent) / 100;
   };
@@ -172,6 +222,16 @@ class Player extends React.Component {
     this.playerRef.load();
   };
 
+  backwardTen = () => {
+    const newTime = this.playerRef.currentTime - 10;
+    this.playerRef.currentTime = newTime;
+  };
+
+  forwardTen = () => {
+    const newTime = this.playerRef.currentTime + 10;
+    this.playerRef.currentTime = newTime;
+  };
+
   nextSong = () => {
     const { audioList, index, pause } = this.state;
     const newIndex = (index + 1) % audioList.length;
@@ -202,6 +262,7 @@ class Player extends React.Component {
     const { audioList, index, pause } = this.state;
     const currentTrack = audioList[index];
     const audio = new Audio(currentTrack.audio);
+    this.fetchText(index);
     if (!this.state.pause) {
       this.playerRef.play();
     } else {
@@ -301,18 +362,27 @@ class Player extends React.Component {
             ></div>
           </div>
           <div className="controls">
+            <button
+              onClick={this.backwardTen}
+              className="backward-ten backward-ten current-btn"
+            >
+              <i></i>
+            </button>
             <button onClick={this.prevSong} className="prev prev current-btn">
               <i className="fas fa-backward"></i>
             </button>
             <button onClick={this.playOrPause} className="play current-btn">
-              {!pause ? (
-                <i className="fas fa-play"></i>
-              ) : (
-                <i className="fas fa-pause"></i>
-              )}
+              {!pause ? <i className="fa-play"></i> : <i className="pause" />}
             </button>
+
             <button onClick={this.nextSong} className="next next current-btn">
               <i className="fas fa-forward"></i>
+            </button>
+            <button
+              onClick={this.forwardTen}
+              className="forward-ten current-btn"
+            >
+              <i></i>
             </button>
           </div>
         </div>
