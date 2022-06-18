@@ -54,7 +54,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 97%;
+    width: 97vw;
     max-height: 100%;
     padding: 0px;
     margin-top: 5px;
@@ -71,6 +71,7 @@ body {
       border-radius: $border-radius;
       color: $base;
       background: $white;
+      width: inherit;
       // width: 800px;
       margin: 5px 5px 5px 5px;
       // audio{
@@ -78,17 +79,16 @@ body {
       // }
       .text-wrap{
         position: relative;
-        width: 97%;
+        width: inherit;
         height: 340px;
         text-align: center;
         overflow-y: scroll;
         border-radius: 20px;
         box-shadow: 0px 10px 40px 0px $lighter-shadow;
       }
-      // .text-card{
-      //   text-align: center;
-      //   font-size:x-large;
-      // }
+      .text-card{
+        padding: 10px;
+      }
       .track-name{
         padding-top: 20px;
         margin-top: 10px 0px 10px 0px;
@@ -274,7 +274,7 @@ body {
           content: '';
           display: block;
           position: absolute;
-          left: 125px;
+          left: 85px;
           width: 30px;
           height: 30px;
           border-radius: calc( #{$border-radius} - 10px);
@@ -288,18 +288,15 @@ body {
           margin-left: 15px;
           display: flex;
           flex-direction: column;
-          // width: 100%;
-          min-width: 200px;
           .track-name{
             font-size: 17px;
             margin-top: 5px;
             margin-bottom: 5px;
+ 
           }
         }
         .track-duration{
-          min-width: 40px;
-          margin-left: 10px;
-          margin-right: 10px;
+          margin-left: 70px;
           font-weight: 500;
         }
       }

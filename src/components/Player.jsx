@@ -143,6 +143,12 @@ class Player extends React.Component {
         name: "第二十章",
         duration: audioDurations[20],
       },
+      {
+        name: "214个部首",
+      },
+      {
+        name: "100个部首",
+      },
     ],
     pause: false,
     translation: false,
@@ -333,6 +339,7 @@ class Player extends React.Component {
     // const mdFile = translation ? allEnglishText[index] : allMandarinText[index];
 
     const textContent = translation ? mandarin : english;
+    // console.log("text", textContent);
 
     return (
       <div className="card">
@@ -344,9 +351,9 @@ class Player extends React.Component {
           </audio>
           <div className="text-wrap" onClick={this.toggleText}>
             <article
+              className="text-card"
               dangerouslySetInnerHTML={{ __html: textContent }}
             ></article>
-            {/* <Content /> */}
           </div>
           <span className="track-name">{currentTrack.name}</span>
           <div className="time">

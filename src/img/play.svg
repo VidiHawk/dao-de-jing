@@ -1,39 +1,14 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490">
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
     <defs>
         <style>
-            /* .cls-1 {
-                fill: #231f20;
-            } */
-
             .cls-1 {
-                --color: #FFFFFF;
-            }
-
-            @media (prefers-color-scheme: light) {
-                .cls-1 {
-                    --color: #FFFFFF;
-                }
-            }
-
-            @media (prefers-color-scheme: dark) {
-                .cls-1 {
-                    --color: #FFFFFF;
-                }
-            }
-
-            path {
-                fill: yes;
-                stroke: var(--color);
-                stroke-width: 3;
-                stroke-linecap: round;
-                stroke-linejoin: round;
+                fill: #fff;
             }
         </style>
     </defs>
+    <g id="play">
+        <path class="cls-1" d="M32,0A32,32,0,1,1,0,32,32,32,0,0,1,32,0Zm0,62A30,30,0,1,0,2,32,30,30,0,0,0,32,62Z" />
+    </g>
     <path class="cls-1"
-        d="M354.2,247.4,219.1,155c-4.2-3.1-15.4-3.1-16.3,8.6V348.4c1,11.7,12.4,11.9,16.3,8.6l135.1-92.4c3.5-2.1,8.3-10.7,0-17.2ZM223.7,328.7V183.3L329.8,256Z"
-        transform="translate(-11 -11)" />
-    <path class="cls-1"
-        d="M256,11C120.9,11,11,120.9,11,256S120.9,501,256,501,501,391.1,501,256,391.1,11,256,11Zm0,469.1C132.4,480.1,31.9,379.6,31.9,256S132.4,31.9,256,31.9,480.1,132.4,480.1,256,379.6,480.1,256,480.1Z"
-        transform="translate(-11 -11)" />
+        d="M48.49,31.31,25.32,15a1.78,1.78,0,0,0-2.79,1.53V49.17a1.77,1.77,0,0,0,2.79,1.52L48.49,34.35a1.87,1.87,0,0,0,0-3ZM26.11,45.69V20L44.3,32.83Z" />
 </svg>
