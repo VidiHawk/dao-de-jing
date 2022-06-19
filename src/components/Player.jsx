@@ -217,7 +217,7 @@ class Player extends React.Component {
     const minutes = Math.floor(currentTime / 60);
     let seconds = Math.floor(currentTime % 60);
     seconds = seconds >= 10 ? seconds : "0" + (seconds % 60);
-    const formatTime = minutes + ":" + seconds;
+    const formatTime = minutes + "0" + ":" + seconds;
     return formatTime;
   };
 
@@ -228,13 +228,13 @@ class Player extends React.Component {
     this.playerRef.load();
   };
 
-  backwardTen = () => {
-    const newTime = this.playerRef.currentTime - 10;
+  backFive = () => {
+    const newTime = this.playerRef.currentTime - 5;
     this.playerRef.currentTime = newTime;
   };
 
-  forwardTen = () => {
-    const newTime = this.playerRef.currentTime + 10;
+  forwardFive = () => {
+    const newTime = this.playerRef.currentTime + 5;
     this.playerRef.currentTime = newTime;
   };
 
@@ -284,12 +284,15 @@ class Player extends React.Component {
     this.setState({
       index: key,
     });
+
     this.fetchText(key);
     this.updatePlayer();
-
-    if (pause) {
-      this.playerRef.play();
+    if (!pause) {
+      this.setState({
+        pause: !pause,
+      });
     }
+    this.playerRef.play();
   };
 
   fetchText = (index) => {
@@ -337,9 +340,14 @@ class Player extends React.Component {
     // const currentChapter = translation ? `Chapter${index}T` : `Chapter${index}`;
     // const Content = allContent[currentChapter];
     // const mdFile = translation ? allEnglishText[index] : allMandarinText[index];
-
+    // console.log("text", );
+    if (!english) {
+      this.fetchText("intro");
+    }
     const textContent = translation ? mandarin : english;
-    // console.log("text", textContent);
+    const cardStyle = !translation ? "text-card-chinese" : "text-card-english";
+    const playPause = !pause ? "play" : "pause";
+    const display = !pause ? { display: "none" } : { display: "inline-block" };
 
     return (
       <div className="card">
@@ -351,13 +359,17 @@ class Player extends React.Component {
           </audio>
           <div className="text-wrap" onClick={this.toggleText}>
             <article
-              className="text-card"
+              className={cardStyle}
               dangerouslySetInnerHTML={{ __html: textContent }}
             ></article>
           </div>
-          <span className="track-name">{currentTrack.name}</span>
           <div className="time">
             <div className="current-time">{currentTime}</div>
+            <div className="playing-animation">
+              <span className="playing__bar playing__bar1" style={display} />
+              <span className="playing__bar playing__bar2" style={display} />
+              <span className="playing__bar playing__bar3" style={display} />
+            </div>
             <div className="end-time">{currentTrack.duration}</div>
           </div>
           <div ref={(ref) => (this.timelineRef = ref)} id="timeline">
@@ -369,28 +381,11 @@ class Player extends React.Component {
             ></div>
           </div>
           <div className="controls">
-            <button
-              onClick={this.backwardTen}
-              className="backward-ten backward-ten current-btn"
-            >
-              <i></i>
-            </button>
-            <button onClick={this.prevSong} className="prev prev current-btn">
-              <i className="fas fa-backward"></i>
-            </button>
-            <button onClick={this.playOrPause} className="play current-btn">
-              {!pause ? <i className="fa-play"></i> : <i className="pause" />}
-            </button>
-
-            <button onClick={this.nextSong} className="next next current-btn">
-              <i className="fas fa-forward"></i>
-            </button>
-            <button
-              onClick={this.forwardTen}
-              className="forward-ten current-btn"
-            >
-              <i></i>
-            </button>
+            <button onClick={this.backFive} className="back-5" />
+            <button onClick={this.prevSong} className="prev" />
+            <button onClick={this.playOrPause} className={playPause} />
+            <button onClick={this.nextSong} className="next" />
+            <button onClick={this.forwardFive} className="forward-5" />
           </div>
         </div>
         <div className="play-list">
@@ -404,7 +399,7 @@ class Player extends React.Component {
                 (index === key && pause ? "play-now" : "")
               }
             >
-              <div className="track-discr">
+              <div className="track-info-container">
                 <span className="track-name">{track.name}</span>
               </div>
               <span className="track-duration">
