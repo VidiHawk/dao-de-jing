@@ -1,5 +1,4 @@
 import React from "react";
-// import * as allContent from "../content/chapters";
 import { marked } from "marked";
 import "../css/player.scss";
 
@@ -337,10 +336,6 @@ class Player extends React.Component {
       translation,
     } = this.state;
     const currentTrack = audioList[index];
-    // const currentChapter = translation ? `Chapter${index}T` : `Chapter${index}`;
-    // const Content = allContent[currentChapter];
-    // const mdFile = translation ? allEnglishText[index] : allMandarinText[index];
-    // console.log("text", );
     if (!english) {
       this.fetchText("intro");
     }
@@ -353,7 +348,6 @@ class Player extends React.Component {
       <div className="card">
         <div className="current-track">
           <audio ref={(ref) => (this.playerRef = ref)}>
-            {/* <source src={currentTrack.audio} type="audio/ogg" /> */}
             <source src={allAudio[`${index}.mp3`]} type="audio/ogg" />
             Your browser does not support the audio element.
           </audio>
@@ -382,9 +376,9 @@ class Player extends React.Component {
           </div>
           <div className="controls">
             <button onClick={this.backFive} className="back-5" />
-            <button onClick={this.prevSong} className="prev" />
+            {/* <button onClick={this.prevSong} className="prev" /> */}
             <button onClick={this.playOrPause} className={playPause} />
-            <button onClick={this.nextSong} className="next" />
+            {/* <button onClick={this.nextSong} className="next" /> */}
             <button onClick={this.forwardFive} className="forward-5" />
           </div>
         </div>
