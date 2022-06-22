@@ -59,7 +59,6 @@ class Player extends React.Component {
     audioList: [
       {
         name: "道德经",
-        // audio: allAudio["0.mp3"],
         duration: audioDurations[0],
       },
       {
@@ -151,8 +150,7 @@ class Player extends React.Component {
     ],
     pause: false,
     translation: false,
-    mandarin: introText[0],
-    english: introText[1],
+    info: false,
   };
 
   componentDidMount() {
@@ -237,31 +235,31 @@ class Player extends React.Component {
     this.playerRef.currentTime = newTime;
   };
 
-  nextSong = () => {
-    const { audioList, index, pause } = this.state;
-    const newIndex = (index + 1) % audioList.length;
-    this.fetchText(newIndex);
-    this.setState({
-      index: newIndex,
-    });
-    this.updatePlayer();
-    if (pause) {
-      this.playerRef.play();
-    }
-  };
+  // nextSong = () => {
+  //   const { audioList, index, pause } = this.state;
+  //   const newIndex = (index + 1) % audioList.length;
+  //   this.fetchText(newIndex);
+  //   this.setState({
+  //     index: newIndex,
+  //   });
+  //   this.updatePlayer();
+  //   if (pause) {
+  //     this.playerRef.play();
+  //   }
+  // };
 
-  prevSong = () => {
-    const { audioList, index, pause } = this.state;
-    const newIndex = (index + audioList.length - 1) % audioList.length;
-    this.fetchText(newIndex);
-    this.setState({
-      index: newIndex,
-    });
-    this.updatePlayer();
-    if (pause) {
-      this.playerRef.play();
-    }
-  };
+  // prevSong = () => {
+  //   const { audioList, index, pause } = this.state;
+  //   const newIndex = (index + audioList.length - 1) % audioList.length;
+  //   this.fetchText(newIndex);
+  //   this.setState({
+  //     index: newIndex,
+  //   });
+  //   this.updatePlayer();
+  //   if (pause) {
+  //     this.playerRef.play();
+  //   }
+  // };
 
   playOrPause = () => {
     const { audioList, index, pause } = this.state;
@@ -275,6 +273,7 @@ class Player extends React.Component {
     }
     this.setState({
       pause: !pause,
+      info: false,
     });
   };
 
@@ -282,6 +281,7 @@ class Player extends React.Component {
     const { pause } = this.state;
     this.setState({
       index: key,
+      info: false,
     });
 
     this.fetchText(key);
@@ -292,6 +292,26 @@ class Player extends React.Component {
       });
     }
     this.playerRef.play();
+  };
+
+  infoApp = () => {
+    const { pause, translation } = this.state;
+    if (translation) {
+      this.setState({
+        translation: !translation,
+      });
+    }
+    this.setState({
+      mandarin: introText[0],
+      english: introText[1],
+      info: true,
+    });
+    if (pause) {
+      this.playerRef.pause();
+      this.setState({
+        pause: !pause,
+      });
+    }
   };
 
   fetchText = (index) => {
@@ -325,6 +345,18 @@ class Player extends React.Component {
     });
   };
 
+  cardStyle = () => {
+    const { translation, info } = this.state;
+    if (info) {
+      return "text-card-info";
+    }
+    if (!translation) {
+      return "text-card-chinese";
+    } else {
+      return "text-card-english";
+    }
+  };
+
   render() {
     const {
       audioList,
@@ -337,10 +369,11 @@ class Player extends React.Component {
     } = this.state;
     const currentTrack = audioList[index];
     if (!english) {
-      this.fetchText("intro");
+      this.fetchText(index);
     }
     const textContent = translation ? mandarin : english;
-    const cardStyle = !translation ? "text-card-chinese" : "text-card-english";
+    // const cardStyle = !translation ? "text-card-chinese" : "text-card-english";
+    const cardStyle = this.cardStyle();
     const playPause = !pause ? "play" : "pause";
     const display = !pause ? { display: "none" } : { display: "inline-block" };
 

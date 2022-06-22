@@ -53,7 +53,6 @@ body {
       .text-wrap{
         position: relative;
         width: inherit;
-        // height: 340px;
         height: 49vh;
         text-align: center;
         overflow-y: scroll;
@@ -67,6 +66,9 @@ body {
       }
       .text-card-english{
         padding: 10px;
+      }
+      .text-card-info{
+        text-align: left;
       }
       .time{
         display: flex;
