@@ -1,6 +1,8 @@
 <font size=2>
 
-## Information
+<h2 style="text-align:center">
+Information
+</h2>
 
 #### 1. See the translation:
 

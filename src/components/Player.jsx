@@ -1,6 +1,7 @@
 import React from "react";
 import { marked } from "marked";
-import "../css/player.scss";
+import ToggleSwitch from "./ToggleSwitch";
+import "../css/Player.scss";
 
 function importAll(r) {
   let allFiles = {};
@@ -275,6 +276,7 @@ class Player extends React.Component {
     this.setState({
       pause: !pause,
       info: false,
+      settings: false,
     });
   };
 
@@ -283,6 +285,7 @@ class Player extends React.Component {
     this.setState({
       index: key,
       info: false,
+      settings: false,
     });
 
     this.fetchText(key);
@@ -306,6 +309,7 @@ class Player extends React.Component {
       mandarin: introText[0],
       english: introText[1],
       info: true,
+      settings: false,
     });
     if (pause) {
       this.playerRef.pause();
@@ -316,8 +320,18 @@ class Player extends React.Component {
   };
 
   settingsContent = () => {
-    // const { continuous } = this.state;
-    return <p> blah blah</p>;
+    return (
+      <div>
+        <div className="text-card-settings">
+          <h3>Settings</h3>
+        </div>
+
+        <React.Fragment>
+          <ToggleSwitch label="Pause at the end of a chapter" />
+          <ToggleSwitch label="Save progress" />
+        </React.Fragment>
+      </div>
+    );
   };
 
   settingsClick = () => {

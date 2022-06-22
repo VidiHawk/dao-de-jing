@@ -69,6 +69,11 @@ body {
       }
       .text-card-info{
         text-align: left;
+        padding: 10px;
+      }
+      .text-card-settings{
+        text-align: center; 
+        padding: 10px;
       }
       .time{
         display: flex;
@@ -240,8 +245,8 @@ body {
             }
           }
           &.settings{
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             background-image: url("../img/settings.svg");
             &:active{
               transform: scale(1.1);
