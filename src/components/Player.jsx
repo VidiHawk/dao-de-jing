@@ -375,11 +375,13 @@ class Player extends React.Component {
             ></div>
           </div>
           <div className="controls">
+            <button onClick={this.infoApp} className="info" />
             <button onClick={this.backFive} className="back-5" />
             {/* <button onClick={this.prevSong} className="prev" /> */}
             <button onClick={this.playOrPause} className={playPause} />
             {/* <button onClick={this.nextSong} className="next" /> */}
             <button onClick={this.forwardFive} className="forward-5" />
+            <button onClick={this.settingsApp} className="settings" />
           </div>
         </div>
         <div className="play-list">

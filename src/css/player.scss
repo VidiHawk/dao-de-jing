@@ -185,20 +185,13 @@ body {
           // color: white;
           border-radius: 50%;
           margin: 8px 20px;
+          margin: 8px 3vw;
           text-align: center;
           transition: 0.2s;
           background: 0;
           border: none;
           &:focus{
             outline: none;
-          }
-          &.back-5{
-            width: 34px;
-            height: 34px;
-            background-image: url("../img/back-5.svg");
-            &:active{
-              transform: scale(1.1);
-            }
           }
           &.play{
             width: 44px;
@@ -220,6 +213,38 @@ body {
                 box-shadow: 0px 0px 15px 0px  $lighter-shadow;
             }
           }
+          &.back-5{
+            width: 34px;
+            height: 34px;
+            background-image: url("../img/back-5.svg");
+            &:active{
+              transform: scale(1.1);
+            }
+          }
+          &.forward-5{
+            width: 34px;
+            height: 34px;
+            background-image: url("../img/forward-5.svg");
+            &:active{
+              transform: scale(1.1);
+            }
+          }
+          &.info{
+            width: 34px;
+            height: 34px;
+            background-image: url("../img/info.svg");
+            &:active{
+              transform: scale(1.1);
+            }
+          }
+          &.settings{
+            width: 34px;
+            height: 34px;
+            background-image: url("../img/settings.svg");
+            &:active{
+              transform: scale(1.1);
+            }
+          }
           &.prev{
             width: 40px;
             height: 40px;
@@ -236,14 +261,7 @@ body {
               transform: scale(1.1);
             }
           }
-          &.forward-5{
-            width: 34px;
-            height: 34px;
-            background-image: url("../img/forward-5.svg");
-            &:active{
-              transform: scale(1.1);
-            }
-          }
+
         }
       }
     }
