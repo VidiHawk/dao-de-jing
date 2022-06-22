@@ -12,7 +12,7 @@ You can scroll down the chapter list below and click on any chapter you like, th
 
 #### 3. About this app's author:
 
-I am Fabian de Mortier. I could not find any practical resource to learn the Dao de Jing while being on-the-go. So one week-end, I decided to code a simple app. I showed it to some friend and they wanted to use it, so I deployed it online for the benefit of all. It's far from being perfect, and if you have any comments or suggestions, feel free to send me an <a href="mailto:info@fabiandemortier.com" style="color:#bbc2fc">email.</a> For more info about me, visit <a href="https://www.fabiandemortier.com" style="color:#bbc2fc">www.fabiandemortier.com</a>
+Hi, I am Fabian de Mortier. I could not find any practical resource to learn the Dao de Jing while being on-the-go. So one week-end, I decided to code a simple app. I showed it to some friend and they wanted to use it, so I deployed it online for the benefit of all. It hasn't been fully tested yet, and if you have any comments or suggestions, feel free to send me an <a href="mailto:info@fabiandemortier.com" style="color:#bbc2fc">email.</a> For more info about me, visit <a href="https://www.fabiandemortier.com" style="color:#bbc2fc">www.fabiandemortier.com</a>
 
 #### 4. About the translation:
 

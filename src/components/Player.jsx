@@ -151,6 +151,7 @@ class Player extends React.Component {
     pause: false,
     translation: false,
     info: false,
+    settings: false,
   };
 
   componentDidMount() {
@@ -314,6 +315,24 @@ class Player extends React.Component {
     }
   };
 
+  settingsContent = () => {
+    // const { continuous } = this.state;
+    return <p> blah blah</p>;
+  };
+
+  settingsClick = () => {
+    const { pause } = this.state;
+    if (pause) {
+      this.playerRef.pause();
+      this.setState({
+        pause: !pause,
+      });
+    }
+    this.setState({
+      settings: true,
+    });
+  };
+
   fetchText = (index) => {
     const mandarinText = require(`../content/english/${index}.md`);
     const englishText = require(`../content/mandarin/${index}.md`);
@@ -336,6 +355,28 @@ class Player extends React.Component {
           english: marked(text),
         });
       });
+  };
+
+  textContent = () => {
+    const { translation, settings, mandarin, english } = this.state;
+    if (settings) {
+      const content = this.settingsContent();
+      return content;
+    } else {
+      const content = translation ? mandarin : english;
+      return content;
+    }
+  };
+
+  htmlContent = () => {
+    const textContent = this.textContent();
+    const cardStyle = this.cardStyle();
+    return (
+      <article
+        className={cardStyle}
+        dangerouslySetInnerHTML={{ __html: textContent }}
+      ></article>
+    );
   };
 
   toggleText = () => {
@@ -366,14 +407,18 @@ class Player extends React.Component {
       english,
       mandarin,
       translation,
+      settings,
     } = this.state;
     const currentTrack = audioList[index];
     if (!english) {
       this.fetchText(index);
     }
-    const textContent = translation ? mandarin : english;
+    // const textContent = translation ? mandarin : english;
+    // const textContent = this.textContent();
     // const cardStyle = !translation ? "text-card-chinese" : "text-card-english";
-    const cardStyle = this.cardStyle();
+
+    const Content = settings ? this.settingsContent() : this.htmlContent();
+
     const playPause = !pause ? "play" : "pause";
     const display = !pause ? { display: "none" } : { display: "inline-block" };
 
@@ -385,10 +430,7 @@ class Player extends React.Component {
             Your browser does not support the audio element.
           </audio>
           <div className="text-wrap" onClick={this.toggleText}>
-            <article
-              className={cardStyle}
-              dangerouslySetInnerHTML={{ __html: textContent }}
-            ></article>
+            {Content}
           </div>
           <div className="time">
             <div className="current-time">{currentTime}</div>
@@ -414,7 +456,7 @@ class Player extends React.Component {
             <button onClick={this.playOrPause} className={playPause} />
             {/* <button onClick={this.nextSong} className="next" /> */}
             <button onClick={this.forwardFive} className="forward-5" />
-            <button onClick={this.settingsApp} className="settings" />
+            <button onClick={this.settingsClick} className="settings" />
           </div>
         </div>
         <div className="play-list">
