@@ -1,6 +1,6 @@
 import React from "react";
 import { marked } from "marked";
-import ToggleSwitch from "./ToggleSwitch";
+import Switch from "./Switch";
 import "../css/Player.scss";
 
 function importAll(r) {
@@ -37,21 +37,21 @@ const audioDurations = [
   "01:05",
 ];
 
-const introText = [];
+const infoText = [];
 
-function fetchIntro(arg) {
+function fetchInfo(arg) {
   const importedText = require(`../content/${arg}.md`);
   fetch(importedText)
     .then((response) => {
       return response.text();
     })
     .then((text) => {
-      introText.push(marked(text));
+      infoText.push(marked(text));
     });
 }
 
-fetchIntro("english/intro");
-fetchIntro("mandarin/intro");
+fetchInfo("english/info");
+fetchInfo("mandarin/info");
 
 class Player extends React.Component {
   state = {
@@ -153,11 +153,13 @@ class Player extends React.Component {
     translation: false,
     info: false,
     settings: false,
+    stop: true,
+    save: true,
   };
 
   componentDidMount() {
     this.playerRef.addEventListener("timeupdate", this.timeUpdate, false);
-    this.playerRef.addEventListener("ended", this.playOrPause, false);
+    this.playerRef.addEventListener("ended", this.pauseWhenTrackEnds, false);
     this.timelineRef.addEventListener("click", this.changeCurrentTime, false);
     this.timelineRef.addEventListener("mousemove", this.hoverTimeLine, false);
     this.timelineRef.addEventListener("mouseout", this.resetTimeLine, false);
@@ -165,7 +167,7 @@ class Player extends React.Component {
 
   componentWillUnmount() {
     this.playerRef.removeEventListener("timeupdate", this.timeUpdate);
-    this.playerRef.removeEventListener("ended", this.playOrPause);
+    this.playerRef.removeEventListener("ended", this.pauseWhenTrackEnds);
     this.timelineRef.removeEventListener("click", this.changeCurrentTime);
     this.timelineRef.removeEventListener("mousemove", this.hoverTimeLine);
     this.timelineRef.removeEventListener("mouseout", this.resetTimeLine);
@@ -237,18 +239,18 @@ class Player extends React.Component {
     this.playerRef.currentTime = newTime;
   };
 
-  // nextSong = () => {
-  //   const { audioList, index, pause } = this.state;
-  //   const newIndex = (index + 1) % audioList.length;
-  //   this.fetchText(newIndex);
-  //   this.setState({
-  //     index: newIndex,
-  //   });
-  //   this.updatePlayer();
-  //   if (pause) {
-  //     this.playerRef.play();
-  //   }
-  // };
+  nextTrack = () => {
+    const { audioList, index, pause } = this.state;
+    const newIndex = (index + 1) % audioList.length;
+    this.fetchText(newIndex);
+    this.setState({
+      index: newIndex,
+    });
+    this.updatePlayer();
+    if (pause) {
+      this.playerRef.play();
+    }
+  };
 
   // prevSong = () => {
   //   const { audioList, index, pause } = this.state;
@@ -262,6 +264,15 @@ class Player extends React.Component {
   //     this.playerRef.play();
   //   }
   // };
+
+  pauseWhenTrackEnds = () => {
+    const stop = this.state;
+    if (stop) {
+      this.playOrPause();
+    } else {
+      this.nextTrack();
+    }
+  };
 
   playOrPause = () => {
     const { audioList, index, pause } = this.state;
@@ -306,8 +317,8 @@ class Player extends React.Component {
       });
     }
     this.setState({
-      mandarin: introText[0],
-      english: introText[1],
+      mandarin: infoText[0],
+      english: infoText[1],
       info: true,
       settings: false,
     });
@@ -320,21 +331,43 @@ class Player extends React.Component {
   };
 
   settingsContent = () => {
+    const { stop, save } = this.state;
     return (
-      <div>
-        <div className="text-card-settings">
-          <h3>Settings</h3>
+      <div className="text-card-settings">
+        <h3>Settings</h3>
+        <div>
+          Pause at the end of a chapter
+          <br />
         </div>
-
-        <React.Fragment>
-          <ToggleSwitch label="Pause at the end of a chapter" />
-          <ToggleSwitch label="Save progress" />
-        </React.Fragment>
+        <Switch
+          name="stop"
+          isOn={stop}
+          handleToggle={() =>
+            this.setState({
+              stop: !stop,
+            })
+          }
+        />
+        <div>
+          Save progess
+          <br />
+        </div>
+        <Switch
+          name="save"
+          isOn={save}
+          handleToggle={() =>
+            this.setState({
+              save: !save,
+            })
+          }
+        />
+        {console.log("save: ", save)}
+        {console.log("stop: ", stop)}
       </div>
     );
   };
 
-  settingsClick = () => {
+  settingsOpen = () => {
     const { pause } = this.state;
     if (pause) {
       this.playerRef.pause();
@@ -470,7 +503,7 @@ class Player extends React.Component {
             <button onClick={this.playOrPause} className={playPause} />
             {/* <button onClick={this.nextSong} className="next" /> */}
             <button onClick={this.forwardFive} className="forward-5" />
-            <button onClick={this.settingsClick} className="settings" />
+            <button onClick={this.settingsOpen} className="settings" />
           </div>
         </div>
         <div className="play-list">

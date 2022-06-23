@@ -45,8 +45,8 @@ color: #fff;
 .inner:after {
 content: "no";
 padding-right: 16px;
-background-color: #bbb;
-color: black !important;
+background-color: #5e5d5d;
+color: #fff;
 text-align: right;
 }
 .switch {
