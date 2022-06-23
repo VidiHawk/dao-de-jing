@@ -42,3 +42,52 @@
   .switch-label:active .switch-button {
     width: 60px;
   }
+
+
+@media (prefers-color-scheme: dark) {
+
+.switch-container{
+  /* align-items: left; */
+}
+.switch-checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.switch-label {
+  margin-top: 20px;
+  display: inline-block;
+  align-items: right;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  background: grey;
+  border-radius: 60px;
+  position: relative;
+  transition: background-color .2s;
+}
+
+.switch-label .switch-button {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  border-radius: 26px;
+  transition: 0.2s;
+  background: rgb(241, 20, 20);
+  box-shadow: 0 0 2px 0 rgba(244, 248, 14, 0.29);
+}
+
+.switch-checkbox:checked + .switch-label .switch-button {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.switch-label:active .switch-button {
+  width: 60px;
+} 
+}

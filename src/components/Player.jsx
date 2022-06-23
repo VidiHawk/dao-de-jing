@@ -258,6 +258,7 @@ class Player extends React.Component {
     this.setState({
       index: newIndex,
     });
+    localStorage.setItem("index", JSON.stringify(newIndex));
     this.updatePlayer();
     if (pause) {
       this.playerRef.play();
@@ -278,13 +279,16 @@ class Player extends React.Component {
   // };
 
   pauseWhenTrackEnds = () => {
-    const { pause, stop } = this.state;
+    const { stop } = this.state;
     if (stop) {
-      this.playOrPause();
+      this.playerRef.pause();
+      this.setState({
+        pause: false,
+      });
     } else {
       this.nextTrack();
       this.setState({
-        pause: !pause,
+        pause: true,
       });
     }
 
@@ -315,7 +319,7 @@ class Player extends React.Component {
       info: false,
       settings: false,
     });
-
+    localStorage.setItem("index", JSON.stringify(key));
     this.fetchText(key);
     this.updatePlayer();
     if (!pause && clickNplay) {
@@ -362,6 +366,9 @@ class Player extends React.Component {
 
   settingsContent = () => {
     const { stop, save, clickNplay } = this.state;
+    console.log("stop: ", stop);
+    console.log("save: ", save);
+    console.log("clickNplay: ", clickNplay);
     return (
       <>
         <h3>Settings</h3>
@@ -485,33 +492,32 @@ class Player extends React.Component {
     }
   };
 
+  // localStorageSet = (key, value) => {
+  //   localStorage.setItem(key, JSON.stringify(value));
+  // };
+
+  // localStorageGet = (key) => {
+  //   JSON.parse(localStorage.getItem(key));
+  // };
+
   render() {
-    const {
-      audioList,
-      index,
-      currentTime,
-      pause,
-      english,
-      mandarin,
-      translation,
-      settings,
-    } = this.state;
+    const { audioList, currentTime, pause, english, settings } = this.state;
+
+    const index = JSON.parse(localStorage.getItem("index")) || 0;
+
     const currentTrack = audioList[index];
     if (!english) {
       this.fetchText(index);
     }
-    // const textContent = translation ? mandarin : english;
-    // const textContent = this.textContent();
-    // const cardStyle = !translation ? "text-card-chinese" : "text-card-english";
 
-    const stuff = localStorage.getItem("index")
-      ? localStorage.getItem("index")
-      : localStorage.setItem("index", index);
-
-    console.log("local: ", stuff);
+    console.log("index: ", index);
+    // const type = typeof index;
+    // console.log("type: ", type);
+    // console.log("local: ", JSON.parse(localStorage.getItem("index")));
+    // const type2 = typeof JSON.parse(localStorage.getItem("index"));
+    // console.log("type: ", type2);
 
     const Content = settings ? this.settingsContent() : this.htmlContent();
-
     const playPause = !pause ? "play" : "pause";
     const display = !pause ? { display: "none" } : { display: "inline-block" };
 
