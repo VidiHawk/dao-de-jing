@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef, useEffect } from "react";
 import { marked } from "marked";
 import Switch from "./Switch";
 import "../css/Player.scss";
@@ -54,6 +54,10 @@ fetchInfo("english/info");
 fetchInfo("mandarin/info");
 
 class Player extends React.Component {
+  // constructor() {
+  //   super();
+  //   this.scrollToRef = createRef();
+  // }
   state = {
     index: 0,
     currentTime: "00:00",
@@ -336,11 +340,6 @@ class Player extends React.Component {
     if (pause && clickNplay) {
       this.playerRef.play();
     }
-    // if (pause && !clickNplay) {
-    //   this.setState({
-    //     pause: false,
-    //   });
-    // }
   };
 
   infoApp = () => {
@@ -492,13 +491,9 @@ class Player extends React.Component {
     }
   };
 
-  // localStorageSet = (key, value) => {
-  //   localStorage.setItem(key, JSON.stringify(value));
-  // };
-
-  // localStorageGet = (key) => {
-  //   JSON.parse(localStorage.getItem(key));
-  // };
+  autoScroll = () => {
+    // this.scrollToRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   render() {
     const { audioList, currentTime, pause, english, settings } = this.state;
@@ -570,6 +565,8 @@ class Player extends React.Component {
               }
             >
               <div className="track-info-container">
+                {/* <div className="track-info-container" id={this.scrolltoRef}>
+                {this.autoScroll()} */}
                 <span className="track-name">{track.name}</span>
               </div>
               <span className="track-duration">

@@ -18,7 +18,9 @@ Hi, I am Fabian de Mortier. I could not find any practical resource to learn the
 
 #### 4. About the translation:
 
-Dao de Jing is one of my all-time favorite piece of ancient Chinese philosophy. Not fully satisfied with existing translations, I am proposing here a new translation in an format that facilitates learning. The Chinese version is written in simplified characters for the sake of modernity. I privileged a straight-forward translation aimed at learners that have limited knowledge of Taoist concepts.
+Dao de Jing is one of my all-time favorite piece of ancient Chinese philosophy. Not fully satisfied with existing translations, I am proposing here a new translation in an format that facilitates learning. The Chinese version is written in simplified characters for the sake of modernity.
+
+While many existing translations digress into fanciful spiritual interpretations, I privileged a straight-forward and close-to-the-original-text translation. I attempted to keep the translation as simple and logical as possible, in order to make it easier for learners that have limited knowledge of Taoist concepts. This will leave readers plenty of room to make their own interpretation.
 
 For those who want to dive deeper into the topic, <a href="https://terebess.hu/english/tao/_index.html" style="color:#bbc2fc">here is a database</a> with no less than 136 different translations of the Dao de Jing!
 
