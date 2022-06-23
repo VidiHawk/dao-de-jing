@@ -1,6 +1,6 @@
-/* .switch-container{
-    align-items: center;
-} */
+.switch-container{
+    /* align-items: left; */
+}
 .switch-checkbox {
     height: 0;
     width: 0;
@@ -8,8 +8,9 @@
   }
   
   .switch-label {
-    margin: 12px;
+    margin-top: 20px;
     display: inline-block;
+    align-items: right;
     justify-content: space-between;
     cursor: pointer;
     width: 60px;

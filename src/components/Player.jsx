@@ -155,6 +155,7 @@ class Player extends React.Component {
     settings: false,
     stop: true,
     save: true,
+    clickNplay: true,
   };
 
   componentDidMount() {
@@ -222,6 +223,17 @@ class Player extends React.Component {
     return formatTime;
   };
 
+  // fetchLocalStorage = () => {
+  //   const [items, setItems] = this.state;
+  //   this.useEffect(() => {
+  //     const items = JSON.parse(localStorage.getItem("items"));
+  //     if (items) {
+  //       this.setItems(items);
+  //     }
+  //   }, []);
+  //   return items;
+  // };
+
   updatePlayer = () => {
     const { audioList, index } = this.state;
     const currentTrack = audioList[index];
@@ -266,12 +278,17 @@ class Player extends React.Component {
   // };
 
   pauseWhenTrackEnds = () => {
-    const stop = this.state;
+    const { pause, stop } = this.state;
     if (stop) {
       this.playOrPause();
     } else {
       this.nextTrack();
+      this.setState({
+        pause: !pause,
+      });
     }
+
+    console.log("track ended + stop value: ", stop);
   };
 
   playOrPause = () => {
@@ -292,7 +309,7 @@ class Player extends React.Component {
   };
 
   clickAudio = (key) => {
-    const { pause } = this.state;
+    const { pause, clickNplay } = this.state;
     this.setState({
       index: key,
       info: false,
@@ -301,12 +318,25 @@ class Player extends React.Component {
 
     this.fetchText(key);
     this.updatePlayer();
-    if (!pause) {
+    if (!pause && clickNplay) {
       this.setState({
         pause: !pause,
       });
+      this.playerRef.play();
     }
-    this.playerRef.play();
+    if ((!pause && !clickNplay) || (pause && !clickNplay)) {
+      this.setState({
+        pause: false,
+      });
+    }
+    if (pause && clickNplay) {
+      this.playerRef.play();
+    }
+    // if (pause && !clickNplay) {
+    //   this.setState({
+    //     pause: false,
+    //   });
+    // }
   };
 
   infoApp = () => {
@@ -331,39 +361,49 @@ class Player extends React.Component {
   };
 
   settingsContent = () => {
-    const { stop, save } = this.state;
+    const { stop, save, clickNplay } = this.state;
     return (
-      <div className="text-card-settings">
+      <>
         <h3>Settings</h3>
-        <div>
-          Pause at the end of a chapter
-          <br />
+        <div className="text-card-settings">
+          <div className="switch-container">
+            Pause at the end of a track
+            <Switch
+              name="stop"
+              isOn={stop}
+              handleToggle={() =>
+                this.setState({
+                  stop: !stop,
+                })
+              }
+            />
+          </div>
+          <div className="switch-container">
+            Play a track when clicking on it
+            <Switch
+              name="clickNplay"
+              isOn={clickNplay}
+              handleToggle={() =>
+                this.setState({
+                  clickNplay: !clickNplay,
+                })
+              }
+            />
+          </div>
+          <div className="switch-container">
+            Save progess
+            <Switch
+              name="save"
+              isOn={save}
+              handleToggle={() =>
+                this.setState({
+                  save: !save,
+                })
+              }
+            />
+          </div>
         </div>
-        <Switch
-          name="stop"
-          isOn={stop}
-          handleToggle={() =>
-            this.setState({
-              stop: !stop,
-            })
-          }
-        />
-        <div>
-          Save progess
-          <br />
-        </div>
-        <Switch
-          name="save"
-          isOn={save}
-          handleToggle={() =>
-            this.setState({
-              save: !save,
-            })
-          }
-        />
-        {console.log("save: ", save)}
-        {console.log("stop: ", stop)}
-      </div>
+      </>
     );
   };
 
@@ -463,6 +503,12 @@ class Player extends React.Component {
     // const textContent = translation ? mandarin : english;
     // const textContent = this.textContent();
     // const cardStyle = !translation ? "text-card-chinese" : "text-card-english";
+
+    const stuff = localStorage.getItem("index")
+      ? localStorage.getItem("index")
+      : localStorage.setItem("index", index);
+
+    console.log("local: ", stuff);
 
     const Content = settings ? this.settingsContent() : this.htmlContent();
 
