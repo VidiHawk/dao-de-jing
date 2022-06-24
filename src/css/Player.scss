@@ -72,12 +72,6 @@ body {
         padding: 10px;
       }
       .text-card-settings{
-        // align-items: center;
-        // text-align: center; 
-        // display: inline-flex;
-        display: flex;
-        flex-direction: column;
-        font-size:10pt;
         padding: 10px;
         h2{
           text-align:center; 
@@ -85,6 +79,19 @@ body {
           border: 1px solid #d90202; 
           border-radius:15px;
         } 
+        .item-switch-container{
+          display: flex;
+        }
+        .item{
+          text-align: left;
+          padding: 15px 0px 15px 15px;
+          font-size:10pt;
+          flex: 1.4;
+        }
+        .switch{
+          flex: 0.6;
+          padding: 15px 0px;
+        }
       }
       .time{
         display: flex;

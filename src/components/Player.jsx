@@ -257,35 +257,39 @@ class Player extends React.Component {
       <>
         <div className="text-card-settings">
           <h2>Settings</h2>
-          <div className="switch-container">
-            Pause at the end of a track
-            <Switch
-              name="stop"
-              isOn={stop}
-              handleToggle={
-                () => localStorage.setItem("stop", JSON.stringify(!stop))
-                // this.setState({
-                //   stop: !stop,
-                // })
-              }
-            />
+          <div className="item-switch-container">
+            <div className="item">Pause at the end of a track</div>
+            <div className="switch">
+              <Switch
+                name="stop"
+                isOn={stop}
+                handleToggle={
+                  () => localStorage.setItem("stop", JSON.stringify(!stop))
+                  // this.setState({
+                  //   stop: !stop,
+                  // })
+                }
+              />
+            </div>
           </div>
-          <div className="switch-container">
-            Play a track when clicking on it
-            <Switch
-              name="clickNplay"
-              isOn={clickNplay}
-              handleToggle={
-                () =>
-                  localStorage.setItem(
-                    "clickNplay",
-                    JSON.stringify(!clickNplay)
-                  )
-                // this.setState({
-                //   clickNplay: !clickNplay,
-                // })
-              }
-            />
+          <div className="item-switch-container">
+            <div className="item">Play a track when clicking on it</div>
+            <div className="switch">
+              <Switch
+                name="clickNplay"
+                isOn={clickNplay}
+                handleToggle={
+                  () =>
+                    localStorage.setItem(
+                      "clickNplay",
+                      JSON.stringify(!clickNplay)
+                    )
+                  // this.setState({
+                  //   clickNplay: !clickNplay,
+                  // })
+                }
+              />
+            </div>
           </div>
         </div>
       </>
