@@ -45,9 +45,9 @@ class Player extends React.Component {
     translation: false,
     info: false,
     settings: false,
-    stop: true,
-    save: true,
-    clickNplay: true,
+    // stop: true,
+    // save: true,
+    // clickNplay: true,
   };
 
   componentDidMount() {
@@ -171,7 +171,7 @@ class Player extends React.Component {
   // };
 
   pauseWhenTrackEnds = () => {
-    const { stop } = this.state;
+    const stop = JSON.parse(localStorage.getItem("stop")) || false;
     if (stop) {
       this.playerRef.pause();
       this.setState({
@@ -205,7 +205,8 @@ class Player extends React.Component {
   };
 
   clickAudio = (key) => {
-    const { pause, clickNplay } = this.state;
+    const clickNplay = JSON.parse(localStorage.getItem("clickNplay")) || false;
+    const { pause } = this.state;
     this.setState({
       index: key,
       info: false,
@@ -251,24 +252,21 @@ class Player extends React.Component {
     }
   };
 
-  settingsContent = () => {
-    const { stop, save, clickNplay } = this.state;
-    console.log("stop: ", stop);
-    console.log("save: ", save);
-    console.log("clickNplay: ", clickNplay);
+  settingsContent = (stop, clickNplay) => {
     return (
       <>
-        <h3>Settings</h3>
         <div className="text-card-settings">
+          <h2>Settings</h2>
           <div className="switch-container">
             Pause at the end of a track
             <Switch
               name="stop"
               isOn={stop}
-              handleToggle={() =>
-                this.setState({
-                  stop: !stop,
-                })
+              handleToggle={
+                () => localStorage.setItem("stop", JSON.stringify(!stop))
+                // this.setState({
+                //   stop: !stop,
+                // })
               }
             />
           </div>
@@ -277,22 +275,15 @@ class Player extends React.Component {
             <Switch
               name="clickNplay"
               isOn={clickNplay}
-              handleToggle={() =>
-                this.setState({
-                  clickNplay: !clickNplay,
-                })
-              }
-            />
-          </div>
-          <div className="switch-container">
-            Save progess
-            <Switch
-              name="save"
-              isOn={save}
-              handleToggle={() =>
-                this.setState({
-                  save: !save,
-                })
+              handleToggle={
+                () =>
+                  localStorage.setItem(
+                    "clickNplay",
+                    JSON.stringify(!clickNplay)
+                  )
+                // this.setState({
+                //   clickNplay: !clickNplay,
+                // })
               }
             />
           </div>
@@ -387,20 +378,27 @@ class Player extends React.Component {
     const { audioList, currentTime, pause, english, settings } = this.state;
 
     const index = JSON.parse(localStorage.getItem("index")) || 0;
-
+    const stop = JSON.parse(localStorage.getItem("stop")) || false;
+    const clickNplay = JSON.parse(localStorage.getItem("clickNplay")) || false;
     const currentTrack = audioList[index];
+
     if (!english) {
       this.fetchText(index);
     }
-    console.log("audio: ", AudioList[0]);
-    console.log("index: ", index);
+
+    console.log("stop: ", stop);
+    console.log("clickNplay: ", clickNplay);
+    // console.log("audio: ", AudioList[0]);
+    // console.log("index: ", index);
     // const type = typeof index;
     // console.log("type: ", type);
     // console.log("local: ", JSON.parse(localStorage.getItem("index")));
     // const type2 = typeof JSON.parse(localStorage.getItem("index"));
     // console.log("type: ", type2);
 
-    const Content = settings ? this.settingsContent() : this.htmlContent();
+    const Content = settings
+      ? this.settingsContent(stop, clickNplay)
+      : this.htmlContent();
     const playPause = !pause ? "play" : "pause";
     const display = !pause ? { display: "none" } : { display: "inline-block" };
 

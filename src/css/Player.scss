@@ -75,7 +75,16 @@ body {
         // align-items: center;
         // text-align: center; 
         // display: inline-flex;
+        display: flex;
+        flex-direction: column;
+        font-size:10pt;
         padding: 10px;
+        h2{
+          text-align:center; 
+          padding:8px; 
+          border: 1px solid #d90202; 
+          border-radius:15px;
+        } 
       }
       .time{
         display: flex;

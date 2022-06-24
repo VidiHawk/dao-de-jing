@@ -1,6 +1,6 @@
 <font size=2>
 
-<h2 style="text-align:center">
+<h2 style="text-align:center; padding:8px; border: 1px solid #d90202; border-radius:15px;">
 Information
 </h2>
 

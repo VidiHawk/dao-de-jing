@@ -1,6 +1,8 @@
 <font size=2>
 
-## 信息
+<h2 style="text-align:center; padding:8px; border: 1px solid #d90202; border-radius:15px;">
+信息
+</h2>
 
 #### 1. 看翻译：
 
