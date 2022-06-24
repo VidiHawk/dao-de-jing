@@ -35,6 +35,16 @@ const audioDurations = [
   "00:18",
   "00:24",
   "01:05",
+  "00:36",
+  "00:40",
+  "00:41",
+  "00:25",
+  "00:43",
+  "00:24",
+  "00:44",
+  "00:46",
+  "00:33",
+  "00:37",
 ];
 
 const infoText = [];
@@ -145,6 +155,46 @@ class Player extends React.Component {
       {
         name: "第二十章",
         duration: audioDurations[20],
+      },
+      {
+        name: "第二十一章",
+        duration: audioDurations[21],
+      },
+      {
+        name: "第二十二章",
+        duration: audioDurations[22],
+      },
+      {
+        name: "第二十三章",
+        duration: audioDurations[23],
+      },
+      {
+        name: "第二十四章",
+        duration: audioDurations[24],
+      },
+      {
+        name: "第二十五章",
+        duration: audioDurations[25],
+      },
+      {
+        name: "第二十六章",
+        duration: audioDurations[26],
+      },
+      {
+        name: "第二十七章",
+        duration: audioDurations[27],
+      },
+      {
+        name: "第二十八章",
+        duration: audioDurations[28],
+      },
+      {
+        name: "第二十九章",
+        duration: audioDurations[29],
+      },
+      {
+        name: "第三十章",
+        duration: audioDurations[30],
       },
       {
         name: "214个部首",
