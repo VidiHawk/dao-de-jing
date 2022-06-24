@@ -3,10 +3,10 @@
 ### Next steps
 
 - optimize font loading https://microwork.dev/optimize-google-fonts-to-fix-eliminate-render-blocking-issues/
+
+I did convert KaiTi from .ttf to .woff2 with https://transfonter.org/. The file size went from 11MB to 3.8MB
+
 - make it a PWA
-- add golden number in proportions
-- should be able to use it offline
-- www.dao-de-jing.com
 - add a fullscreen functionality https://web.dev/native-hardware-fullscreen/
 - https://codesandbox.io/s/9kifw?file=/src/App.js
 

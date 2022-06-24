@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from "react";
+import React from "react";
 import { marked } from "marked";
 import Switch from "./Switch";
 import AudioList from "../utils/AudioList";
@@ -115,17 +115,6 @@ class Player extends React.Component {
     return formatTime;
   };
 
-  // fetchLocalStorage = () => {
-  //   const [items, setItems] = this.state;
-  //   this.useEffect(() => {
-  //     const items = JSON.parse(localStorage.getItem("items"));
-  //     if (items) {
-  //       this.setItems(items);
-  //     }
-  //   }, []);
-  //   return items;
-  // };
-
   updatePlayer = () => {
     const { audioList, index } = this.state;
     const currentTrack = audioList[index];
@@ -157,19 +146,6 @@ class Player extends React.Component {
     }
   };
 
-  // prevSong = () => {
-  //   const { audioList, index, pause } = this.state;
-  //   const newIndex = (index + audioList.length - 1) % audioList.length;
-  //   this.fetchText(newIndex);
-  //   this.setState({
-  //     index: newIndex,
-  //   });
-  //   this.updatePlayer();
-  //   if (pause) {
-  //     this.playerRef.play();
-  //   }
-  // };
-
   pauseWhenTrackEnds = () => {
     const stop = JSON.parse(localStorage.getItem("stop")) || false;
     if (stop) {
@@ -183,8 +159,6 @@ class Player extends React.Component {
         pause: true,
       });
     }
-
-    console.log("track ended + stop value: ", stop);
   };
 
   playOrPause = () => {
@@ -374,24 +348,40 @@ class Player extends React.Component {
     }
   };
 
-  autoScroll = () => {
-    // this.scrollToRef.current.scrollIntoView({ behavior: "smooth" });
-  };
+  // checkLocalStorage = (item) => {
+  //   if (localStorage.getItem(item) === null) {
+  //     console.log("null: ", item);
+  //     return false;
+  //   } else {
+  //     console.log("exist: ", item);
+  //     return true;
+  //   }
+  // };
 
   render() {
     const { audioList, currentTime, pause, english, settings } = this.state;
 
+    // const index = this.checkLocalStorage("index")
+    //   ? JSON.parse(localStorage.getItem("index"))
+    //   : 0;
+    // const stop = this.checkLocalStorage("stop")
+    //   ? JSON.parse(localStorage.getItem("stop"))
+    //   : false;
+    // const clickNplay = this.checkLocalStorage("clickNplay")
+    //   ? JSON.parse(localStorage.getItem("clickNplay"))
+    //   : false;
+
     const index = JSON.parse(localStorage.getItem("index")) || 0;
     const stop = JSON.parse(localStorage.getItem("stop")) || false;
-    const clickNplay = JSON.parse(localStorage.getItem("clickNplay")) || false;
+    const clickNplay = JSON.parse(localStorage.getItem("clickNplay")) || true;
     const currentTrack = audioList[index];
 
     if (!english) {
       this.fetchText(index);
     }
 
-    console.log("stop: ", stop);
-    console.log("clickNplay: ", clickNplay);
+    // console.log("stop: ", stop);
+    // console.log("clickNplay: ", clickNplay);
     // console.log("audio: ", AudioList[0]);
     // console.log("index: ", index);
     // const type = typeof index;
@@ -455,8 +445,6 @@ class Player extends React.Component {
               }
             >
               <div className="track-info-container">
-                {/* <div className="track-info-container" id={this.scrolltoRef}>
-                {this.autoScroll()} */}
                 <span className="track-name">{track.name}</span>
               </div>
               <span className="track-duration">
