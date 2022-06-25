@@ -1,13 +1,13 @@
-@font-face {
-  font-family: 'Noto Sans SC', sans-serif;
-  src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&family');
-  unicode-range: U+4E00-9FFF;
-}
+// @font-face {
+//   font-family: 'Noto Sans SC', sans-serif;
+//   src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&family');
+//   unicode-range: U+4E00-9FFF;
+// }
 
-@font-face {
-  font-family: 'Rubik', sans-serif;
-  src: url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
-}
+// @font-face {
+//   font-family: 'Rubik', sans-serif;
+//   src: url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+// }
 
 $border-radius: 20px;
 $primary: #d90202;
@@ -21,7 +21,7 @@ $transition: .3s all ease;
 
 @media only screen and (max-width: 600px) {
 body {
-  font-family: 'Noto Sans SC', 'Rubik', sans-serif;
+  // font-family: 'Noto Sans SC', 'Rubik', sans-serif;
   color: white;
   display: flex;
   justify-content: center;

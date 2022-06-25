@@ -9,6 +9,8 @@ I did convert KaiTi from .ttf to .woff2 with https://transfonter.org/. The file 
 - make it a PWA
 - add a fullscreen functionality https://web.dev/native-hardware-fullscreen/
 - https://codesandbox.io/s/9kifw?file=/src/App.js
+- activate CDN
+- SEO https://www.dotcms.com/blog/post/single-page-applications-seo-how-to-get-it-right
 
 ### Golden Ratio
 
