@@ -33,10 +33,6 @@ fetchInfo("english/info");
 fetchInfo("mandarin/info");
 
 class Player extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.scrollToRef = createRef();
-  // }
   state = {
     index: 0,
     currentTime: "00:00",
@@ -45,9 +41,6 @@ class Player extends React.Component {
     translation: false,
     info: false,
     settings: false,
-    // stop: true,
-    // save: true,
-    // clickNplay: true,
   };
 
   componentDidMount() {
@@ -116,7 +109,9 @@ class Player extends React.Component {
   };
 
   updatePlayer = () => {
-    const index = JSON.parse(localStorage.getItem("index")) || 0;
+    const index = localStorage.getItem("index")
+      ? JSON.parse(localStorage.getItem("index"))
+      : 0;
     const { audioList } = this.state;
     const currentTrack = audioList[index];
     const audio = new Audio(currentTrack.audio);
