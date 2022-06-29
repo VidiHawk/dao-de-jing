@@ -116,7 +116,8 @@ class Player extends React.Component {
   };
 
   updatePlayer = () => {
-    const { audioList, index } = this.state;
+    const index = JSON.parse(localStorage.getItem("index")) || 0;
+    const { audioList } = this.state;
     const currentTrack = audioList[index];
     const audio = new Audio(currentTrack.audio);
     this.playerRef.load();
@@ -133,12 +134,16 @@ class Player extends React.Component {
   };
 
   nextTrack = () => {
-    const { audioList, index, pause } = this.state;
+    const index = localStorage.getItem("index")
+      ? JSON.parse(localStorage.getItem("index"))
+      : 0;
+    const { audioList, pause } = this.state;
     const newIndex = (index + 1) % audioList.length;
     this.fetchText(newIndex);
-    this.setState({
-      index: newIndex,
-    });
+    localStorage.setItem("index", JSON.stringify(newIndex));
+    // this.setState({
+    //   index: newIndex,
+    // });
     localStorage.setItem("index", JSON.stringify(newIndex));
     this.updatePlayer();
     if (pause) {
@@ -147,7 +152,9 @@ class Player extends React.Component {
   };
 
   pauseWhenTrackEnds = () => {
-    const stop = JSON.parse(localStorage.getItem("stop")) || false;
+    const stop = localStorage.getItem("stop")
+      ? JSON.parse(localStorage.getItem("stop"))
+      : false;
     if (stop) {
       this.playerRef.pause();
       this.setState({
@@ -162,7 +169,10 @@ class Player extends React.Component {
   };
 
   playOrPause = () => {
-    const { audioList, index, pause } = this.state;
+    const index = localStorage.getItem("index")
+      ? JSON.parse(localStorage.getItem("index"))
+      : 0;
+    const { audioList, pause } = this.state;
     const currentTrack = audioList[index];
     const audio = new Audio(currentTrack.audio);
     this.fetchText(index);
@@ -179,7 +189,9 @@ class Player extends React.Component {
   };
 
   clickAudio = (key) => {
-    const clickNplay = JSON.parse(localStorage.getItem("clickNplay")) || false;
+    const clickNplay = localStorage.getItem("clickNplay")
+      ? JSON.parse(localStorage.getItem("clickNplay"))
+      : true;
     const { pause } = this.state;
     this.setState({
       index: key,
@@ -371,18 +383,27 @@ class Player extends React.Component {
     //   ? JSON.parse(localStorage.getItem("clickNplay"))
     //   : false;
 
-    const index = JSON.parse(localStorage.getItem("index")) || 0;
-    const stop = JSON.parse(localStorage.getItem("stop")) || false;
-    const clickNplay = JSON.parse(localStorage.getItem("clickNplay")) || true;
+    const index = localStorage.getItem("index")
+      ? JSON.parse(localStorage.getItem("index"))
+      : 0;
+    const stop = localStorage.getItem("stop")
+      ? JSON.parse(localStorage.getItem("stop"))
+      : false;
+    const clickNplay = localStorage.getItem("clickNplay")
+      ? JSON.parse(localStorage.getItem("clickNplay"))
+      : true;
     const currentTrack = audioList[index];
 
     if (!english) {
       this.fetchText(index);
     }
 
-    // console.log("stop: ", stop);
+    // console.log(
+    //   "clickNplay storage: ",
+    //   JSON.parse(localStorage.getItem("clickNplay"))
+    // );
     // console.log("clickNplay: ", clickNplay);
-    // console.log("audio: ", AudioList[0]);
+    // console.log("stop: ", stop);
     // console.log("index: ", index);
     // const type = typeof index;
     // console.log("type: ", type);

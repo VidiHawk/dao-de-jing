@@ -1,14 +1,15 @@
 # Dao de Jing
 
+### Bugs
+
+- Play a track when clicking on it switch doesn't work on OnePlus
+
 ### Next steps
 
 - optimize font loading https://microwork.dev/optimize-google-fonts-to-fix-eliminate-render-blocking-issues/
-
-I did convert KaiTi from .ttf to .woff2 with https://transfonter.org/. The file size went from 11MB to 3.8MB
-
-- make it a PWA
-- add a fullscreen functionality https://web.dev/native-hardware-fullscreen/
-- https://codesandbox.io/s/9kifw?file=/src/App.js
+  I did convert KaiTi from .ttf to .woff2 with https://transfonter.org/. The file size went from 11MB to 3.8MB
+- make it a PWA https://create-react-app.dev/docs/making-a-progressive-web-app/
+- add a fullscreen functionality https://web.dev/native-hardware-fullscreen/ - https://codesandbox.io/s/9kifw?file=/src/App.js
 - activate CDN
 - SEO https://www.dotcms.com/blog/post/single-page-applications-seo-how-to-get-it-right
 
