@@ -104,6 +104,6 @@ def slice():
         print(d)
 
 
-durations()
+# durations()
 # slice()
-# probe_metadata("out.mp3")
+probe_metadata("0.mp3")

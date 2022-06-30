@@ -19,7 +19,7 @@ $gray: #8c8c8c;
 $lighter-gray: rgba($gray, .1);
 $transition: .3s all ease;
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
 body {
   // font-family: 'Noto Sans SC', 'Rubik', sans-serif;
   color: white;
@@ -28,17 +28,14 @@ body {
   align-items: center;
   flex-direction: column;
   background: $background;
-  // position: fixed;
   .card{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 97vw;
-    // height: 98vh;
     height: 100vh;
     padding: 0px;
-    // margin-top: 5px;
     border-radius: $border-radius;
     box-shadow: 0px 0px 70px 0px $shadow-color;
     background: black;
@@ -342,76 +339,135 @@ body {
 }
 
 
-@media screen and (min-width:600px) {
+
+@media only screen and (min-width: 700px) {
   body {
-    font-family: 'MyFonts', sans-serif;
-    color: $base;
+    // font-family: 'Noto Sans SC', 'Rubik', sans-serif;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #000;
+    background: $background;
     .card{
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 580px;
-      max-height: 100%;
-      padding: 0px;
-      margin-top: 30px;
+      width: 80vw;
+      height: 100vh;
+      padding: 6px;
+      margin: 10px 0px;
       border-radius: $border-radius;
-      color: white;
       box-shadow: 0px 0px 70px 0px $shadow-color;
-      background: $base;
+      background: black;
       overflow: hidden;
-      
       .current-track{
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 0px 0px;
         border-radius: $border-radius;
-        color: $base;
-        background: white;
-        // width: 800px;
-        margin: 20px 20px 0px 20px;
-        
-     
-        audio{
-          display: none;
-        }
+        width: inherit;
+        background-color: #1a1a1a;
         .text-wrap{
           position: relative;
-          // margin: 0 auto;
-          width: 540px;
-          height: 280px;
+          width: inherit;
+          height: 49vh;
           text-align: center;
           overflow-y: scroll;
           border-radius: 20px;
           box-shadow: 0px 10px 40px 0px $lighter-shadow;
+          background-color: black;
         }
-        // .text-card{
-        //   text-align: center;
-        //   font-size:x-large;
-        // }
-        .track-name{
-          margin-top: 20px;
-          font-size: 22px;
+        .text-card-chinese{
+          font-size: 20pt;
+          padding: 10px;
+        }
+        .text-card-english{
+          padding: 10px;
+        }
+        .text-card-info{
+          text-align: left;
+          padding: 10px;
+        }
+        .text-card-settings{
+          padding: 10px;
+          h2{
+            text-align:center; 
+            padding:8px; 
+            border: 1px solid #d90202; 
+            border-radius:15px;
+          } 
+          .item-switch-container{
+            display: flex;
+          }
+          .item{
+            text-align: left;
+            padding: 15px 0px 15px 15px;
+            font-size:10pt;
+            flex: 1.4;
+          }
+          .switch{
+            flex: 0.6;
+            padding: 15px 0px;
+          }
         }
         .time{
           display: flex;
+          margin-top: 15px;
           justify-content: space-between;
-          width: 320px;
+          width: 80%;
+          .playing-animation {
+            width: 2rem;
+            height: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 5px;
+            box-sizing: border-box;
+          }
+          .playing__bar {
+            background: $primary;
+            width: 30%;
+            animation: up-and-down 1.3s ease infinite alternate;
+          }
+          .playing__bar1 {
+            height: 60%;
+          }
+          .playing__bar2 {
+            height: 30%;
+            animation-delay: -2.2s;
+          }
+          .playing__bar3 {
+            height: 75%;
+            animation-delay: -3.7s;
+          }
+          @keyframes up-and-down {
+            10% {
+              height: 30%;
+            }        
+            30% {
+              height: 100%;
+            }        
+            60% {
+              height: 50%;
+            }        
+            80% {
+              height: 75%;
+            }        
+            100% {
+              height: 60%;
+            }
+          }
         }
         #timeline{
+          margin-top: 3px;
           position: relative;
-          margin: 0 auto;
-          width: 320px;
+          width: 80%;
           height: 5px;
           background: $primary;
           border-radius: 5px;
-          cursor: pointer;
           &:hover{
             .hover-playhead{
                opacity: 1;
@@ -451,7 +507,6 @@ body {
               width: 40px;
               padding: 3px;
               text-align: center;
-              color: white;
               background: $shadow-color;
               border-radius: calc( #{$border-radius} - 12px);
             }
@@ -469,53 +524,88 @@ body {
           }
         }
         .controls{
-          margin-top: 10px;
+          margin: 12px 0px;
           button{
-            color: $base;
+            // color: white;
             border-radius: 50%;
-            margin: 10px 50px 10px 50px;
-            font-size: 18px;
+            margin: 8px 20px;
+            margin: 8px 3vw;
             text-align: center;
             transition: 0.2s;
-            cursor: pointer;
-            border: none;
             background: 0;
+            border: none;
             &:focus{
               outline: none;
             }
             &.play{
-              width: 50px;
-              height: 50px;
+              width: 44px;
+              height: 44px;
               border: 1px solid #e2e2e2;
               background-image: url("../img/play.svg");
               &:hover{
                 left: 0;
                 box-shadow: 0px 0px 15px 0px  $lighter-shadow;
               }
-              .fa-play{
-                transform: translateX(2px);
+            }
+            &.pause{
+                width: 44px;
+                height: 44px;
+                border: 1px solid #e2e2e2;
+                background-image: url("../img/pause.svg");
+                &:hover{
+                  left: 0;
+                  box-shadow: 0px 0px 15px 0px  $lighter-shadow;
               }
-              // .fa-pause{
-              .pause{
-                background-image: url("../img/rewind.svg");
+            }
+            &.back-5{
+              width: 34px;
+              height: 34px;
+              background-image: url("../img/back-5.svg");
+              &:active{
+                transform: scale(1.1);
+              }
+            }
+            &.forward-5{
+              width: 34px;
+              height: 34px;
+              background-image: url("../img/forward-5.svg");
+              &:active{
+                transform: scale(1.1);
+              }
+            }
+            &.info{
+              width: 34px;
+              height: 34px;
+              background-image: url("../img/info.svg");
+              &:active{
+                transform: scale(1.1);
+              }
+            }
+            &.settings{
+              width: 32px;
+              height: 32px;
+              background-image: url("../img/settings.svg");
+              &:active{
+                transform: scale(1.1);
               }
             }
             &.prev{
-              width: 35px;
-              height: 35px;
+              width: 40px;
+              height: 40px;
               background-image: url("../img/rewind.svg");
-              &:hover{
-                transform: scale(1.2);
+              &:active{
+                transform: scale(1.1);
               }
             }
             &.next{
-              width: 35px;
-              height: 35px;
+              width: 40px;
+              height: 40px;
               background-image: url("../img/fforward.svg");
-              &:hover{
-                transform: scale(1.2);
+              &:active{
+                transform: scale(1.1);
               }
             }
+  
           }
         }
       }
@@ -523,131 +613,181 @@ body {
         display: flex;
         flex-direction: column;
         padding: 10px;
-        height: 85%;
         overflow-y: scroll;
+        width: inherit;
+        align-items: center;
         .track{
           display: flex;
           align-items: center;
+          justify-content: space-between;
           margin-bottom: 10px;
           border-radius: calc( #{$border-radius} - 10px);
           border: 1px solid transparent;
           transition: 0.3s;
-          cursor: pointer;
+          width: 40vw;
           &:hover{
             background: $shadow-color;
             border-color: $shadow-color;
             position: relative;
           }
           &.current-audio{
-            background: $shadow-color;
-            box-shadow: 0px 0px 15px 0px $shadow-color;
+            background: #3d3d3d;;
+            box-shadow: 0px 0px 15px 0px #3d3d3d;
           }
           &.play-now{
-            background: $shadow-color;
-            box-shadow: 0px 0px 15px 0px  $shadow-color;
-            position: relative;
-
-  
+            background: #3d3d3d;;
+            box-shadow: 0px 0px 15px 0px  #3d3d3d;
         }
-          .track-discr{
-            margin-left: 15px;
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            .track-name{
-              font-size: 17px;
-              margin-top: 5px;
-              margin-bottom: 5px;
-            }
+        .track-info-container{
+          margin-left: 15px;
+          display: flex;
+          flex-direction: column;
+          .track-name{
+            font-size: 17px;
+            margin: 5px 0px;
           }
-          .track-duration{
-            min-width: 40px;
-            margin-left: 10px;
-            margin-right: 10px;
-            font-weight: 500;
-          }
+        }
+        .track-duration{
+          font-weight: 500;
+          margin-right: 15px;
+        }
         }
       }
     }
   }
-}
+  }
 
-@media screen and (min-width:1024px) {
+@media only screen and (min-width: 1024px) {
   body {
-    font-family: 'MyFonts', sans-serif;
-    color: $base;
+    // font-family: 'Noto Sans SC', 'Rubik', sans-serif;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #000;
-
-
+    background: $background;
     .card{
-      z-index: 20;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 960px;
-      max-height: 100%;
-      padding: 0px;
-      margin-top: 50px;
+      width: 50vw;
+      height: 100vh;
+      padding: 10px;
+      margin: 20px 0px;
       border-radius: $border-radius;
-      color: white;
       box-shadow: 0px 0px 70px 0px $shadow-color;
-      background: $base;
+      background: black;
       overflow: hidden;
-      
       .current-track{
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 0px 0px;
         border-radius: $border-radius;
-        color: $base;
-        background: white;
-        // width: 800px;
-        margin: 20px 20px 20px 20px;
-        
-     
-        audio{
-          display: none;
-        }
+        width: inherit;
+        background-color: #1a1a1a;
         .text-wrap{
           position: relative;
-          // margin: 0 auto;
-          width: 900px;
-          height: 350px;
+          width: inherit;
+          height: 49vh;
           text-align: center;
           overflow-y: scroll;
           border-radius: 20px;
           box-shadow: 0px 10px 40px 0px $lighter-shadow;
+          background-color: black;
         }
-        // .text-card{
-        //   text-align: center;
-        //   font-size:x-large;
-        // }
-        .track-name{
-          margin-top: 20px;
-          font-size: 22px;
+        .text-card-chinese{
+          font-size: 20pt;
+          padding: 10px;
+        }
+        .text-card-english{
+          padding: 10px;
+        }
+        .text-card-info{
+          text-align: left;
+          padding: 10px;
+        }
+        .text-card-settings{
+          padding: 10px;
+          h2{
+            text-align:center; 
+            padding:8px; 
+            border: 1px solid #d90202; 
+            border-radius:15px;
+          } 
+          .item-switch-container{
+            display: flex;
+          }
+          .item{
+            text-align: left;
+            padding: 15px 0px 15px 15px;
+            font-size:10pt;
+            flex: 1.4;
+          }
+          .switch{
+            flex: 0.6;
+            padding: 15px 0px;
+          }
         }
         .time{
           display: flex;
+          margin-top: 15px;
           justify-content: space-between;
-          width: 500px;
+          width: 80%;
+          .playing-animation {
+            width: 2rem;
+            height: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 5px;
+            box-sizing: border-box;
+          }
+          .playing__bar {
+            background: $primary;
+            width: 30%;
+            animation: up-and-down 1.3s ease infinite alternate;
+          }
+          .playing__bar1 {
+            height: 60%;
+          }
+          .playing__bar2 {
+            height: 30%;
+            animation-delay: -2.2s;
+          }
+          .playing__bar3 {
+            height: 75%;
+            animation-delay: -3.7s;
+          }
+          @keyframes up-and-down {
+            10% {
+              height: 30%;
+            }        
+            30% {
+              height: 100%;
+            }        
+            60% {
+              height: 50%;
+            }        
+            80% {
+              height: 75%;
+            }        
+            100% {
+              height: 60%;
+            }
+          }
         }
         #timeline{
+          margin-top: 3px;
           position: relative;
-          margin: 0 auto;
-          width: 500px;
+          width: 80%;
           height: 5px;
           background: $primary;
           border-radius: 5px;
-          cursor: pointer;
           &:hover{
             .hover-playhead{
-               opacity: 1;
+                opacity: 1;
               &::before{
                 opacity: 1;
               }
@@ -684,7 +824,6 @@ body {
               width: 40px;
               padding: 3px;
               text-align: center;
-              color: white;
               background: $shadow-color;
               border-radius: calc( #{$border-radius} - 12px);
             }
@@ -702,53 +841,87 @@ body {
           }
         }
         .controls{
-          margin-top: 10px;
+          margin: 12px 0px;
           button{
-            color: $base;
             border-radius: 50%;
-            margin: 20px 50px 20px 50px;
-            font-size: 18px;
+            margin: 8px 20px;
+            margin: 8px 3vw;
             text-align: center;
             transition: 0.2s;
-            cursor: pointer;
-            border: none;
             background: 0;
+            border: none;
             &:focus{
               outline: none;
             }
             &.play{
-              width: 50px;
-              height: 50px;
+              width: 44px;
+              height: 44px;
               border: 1px solid #e2e2e2;
               background-image: url("../img/play.svg");
               &:hover{
                 left: 0;
                 box-shadow: 0px 0px 15px 0px  $lighter-shadow;
               }
-              .fa-play{
-                transform: translateX(2px);
+            }
+            &.pause{
+                width: 44px;
+                height: 44px;
+                border: 1px solid #e2e2e2;
+                background-image: url("../img/pause.svg");
+                &:hover{
+                  left: 0;
+                  box-shadow: 0px 0px 15px 0px  $lighter-shadow;
               }
-              // .fa-pause{
-              .pause{
-                background-image: url("../img/rewind.svg");
+            }
+            &.back-5{
+              width: 34px;
+              height: 34px;
+              background-image: url("../img/back-5.svg");
+              &:active{
+                transform: scale(1.1);
+              }
+            }
+            &.forward-5{
+              width: 34px;
+              height: 34px;
+              background-image: url("../img/forward-5.svg");
+              &:active{
+                transform: scale(1.1);
+              }
+            }
+            &.info{
+              width: 34px;
+              height: 34px;
+              background-image: url("../img/info.svg");
+              &:active{
+                transform: scale(1.1);
+              }
+            }
+            &.settings{
+              width: 32px;
+              height: 32px;
+              background-image: url("../img/settings.svg");
+              &:active{
+                transform: scale(1.1);
               }
             }
             &.prev{
-              width: 35px;
-              height: 35px;
+              width: 40px;
+              height: 40px;
               background-image: url("../img/rewind.svg");
-              &:hover{
-                transform: scale(1.2);
+              &:active{
+                transform: scale(1.1);
               }
             }
             &.next{
-              width: 35px;
-              height: 35px;
+              width: 40px;
+              height: 40px;
               background-image: url("../img/fforward.svg");
-              &:hover{
-                transform: scale(1.2);
+              &:active{
+                transform: scale(1.1);
               }
             }
+  
           }
         }
       }
@@ -756,54 +929,50 @@ body {
         display: flex;
         flex-direction: column;
         padding: 10px;
-        height: 200px;
         overflow-y: scroll;
+        width: inherit;
+        align-items: center;
         .track{
           display: flex;
           align-items: center;
+          justify-content: space-between;
           margin-bottom: 10px;
           border-radius: calc( #{$border-radius} - 10px);
           border: 1px solid transparent;
           transition: 0.3s;
-          cursor: pointer;
+          width: 20vw;
           &:hover{
             background: $shadow-color;
             border-color: $shadow-color;
             position: relative;
           }
           &.current-audio{
-            background: $shadow-color;
-            box-shadow: 0px 0px 15px 0px $shadow-color;
+            background: #3d3d3d;;
+            box-shadow: 0px 0px 15px 0px #3d3d3d;
           }
           &.play-now{
-            background: $shadow-color;
-            box-shadow: 0px 0px 15px 0px  $shadow-color;
-            position: relative;
-
-  
+            background: #3d3d3d;;
+            box-shadow: 0px 0px 15px 0px  #3d3d3d;
         }
-          .track-discr{
-            margin-left: 15px;
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            .track-name{
-              font-size: 17px;
-              margin-top: 5px;
-              margin-bottom: 5px;
-            }
+        .track-info-container{
+          margin-left: 15px;
+          display: flex;
+          flex-direction: column;
+          .track-name{
+            font-size: 17px;
+            margin: 5px 0px;
           }
-          .track-duration{
-            min-width: 40px;
-            margin-left: 10px;
-            margin-right: 10px;
-            font-weight: 500;
-          }
+        }
+        .track-duration{
+          font-weight: 500;
+          margin-right: 15px;
+        }
         }
       }
     }
   }
-}
+  }
+
 
 .text-wrap::-webkit-scrollbar {
   width: 5px;
@@ -822,9 +991,6 @@ body {
   background: $base; 
 }
 
-.now-playing{
-  
-}
 
 @keyframes play {
   0%{

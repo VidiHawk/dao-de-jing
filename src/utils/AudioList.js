@@ -157,11 +157,5 @@ const AudioList = [
     name: "第三十章",
     duration: audioDurations[30],
   },
-  {
-    name: "214个部首",
-  },
-  {
-    name: "100个部首",
-  },
 ];
 export default AudioList;

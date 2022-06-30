@@ -355,28 +355,8 @@ class Player extends React.Component {
     }
   };
 
-  // checkLocalStorage = (item) => {
-  //   if (localStorage.getItem(item) === null) {
-  //     console.log("null: ", item);
-  //     return false;
-  //   } else {
-  //     console.log("exist: ", item);
-  //     return true;
-  //   }
-  // };
-
   render() {
     const { audioList, currentTime, pause, english, settings } = this.state;
-
-    // const index = this.checkLocalStorage("index")
-    //   ? JSON.parse(localStorage.getItem("index"))
-    //   : 0;
-    // const stop = this.checkLocalStorage("stop")
-    //   ? JSON.parse(localStorage.getItem("stop"))
-    //   : false;
-    // const clickNplay = this.checkLocalStorage("clickNplay")
-    //   ? JSON.parse(localStorage.getItem("clickNplay"))
-    //   : false;
 
     const index = localStorage.getItem("index")
       ? JSON.parse(localStorage.getItem("index"))
@@ -442,9 +422,7 @@ class Player extends React.Component {
           <div className="controls">
             <button onClick={this.infoApp} className="info" />
             <button onClick={this.backFive} className="back-5" />
-            {/* <button onClick={this.prevSong} className="prev" /> */}
             <button onClick={this.playOrPause} className={playPause} />
-            {/* <button onClick={this.nextSong} className="next" /> */}
             <button onClick={this.forwardFive} className="forward-5" />
             <button onClick={this.settingsOpen} className="settings" />
           </div>
