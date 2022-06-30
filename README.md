@@ -2,7 +2,7 @@
 
 ### Bugs
 
-- Play a track when clicking on it switch doesn't work on OnePlus
+- Audio doesn't work on iPhone on both Chrome and Safari.
 
 ### Next steps
 
