@@ -9,6 +9,8 @@
 /coverage
 
 /build
+/delete
+
 
 # misc
 .DS_Store
