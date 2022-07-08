@@ -49,6 +49,7 @@ class Player extends React.Component {
     this.timelineRef.addEventListener("click", this.changeCurrentTime, false);
     this.timelineRef.addEventListener("mousemove", this.hoverTimeLine, false);
     this.timelineRef.addEventListener("mouseout", this.resetTimeLine, false);
+    this.updatePlayer();
   }
 
   componentWillUnmount() {
@@ -116,6 +117,9 @@ class Player extends React.Component {
     const currentTrack = audioList[index];
     const audio = new Audio(currentTrack.audio);
     this.playerRef.load();
+
+    const playItem = document.getElementById("track" + index);
+    playItem.scrollIntoView({ block: "center", behavior: "smooth" });
   };
 
   backFive = () => {
@@ -395,36 +399,38 @@ class Player extends React.Component {
     return (
       <div className="card">
         <div className="current-track">
-          <audio ref={(ref) => (this.playerRef = ref)}>
-            <source src={allAudioFiles[`${index}.mp3`]} type="audio/ogg" />
-            Your browser does not support the audio element.
-          </audio>
-          <div className="text-wrap" onClick={this.toggleText}>
-            {Content}
-          </div>
-          <div className="time">
-            <div className="current-time">{currentTime}</div>
-            <div className="playing-animation">
-              <span className="playing__bar playing__bar1" style={display} />
-              <span className="playing__bar playing__bar2" style={display} />
-              <span className="playing__bar playing__bar3" style={display} />
+          <div className="control-wrapper">
+            <audio ref={(ref) => (this.playerRef = ref)}>
+              <source src={allAudioFiles[`${index}.mp3`]} type="audio/mp3" />
+              Your browser does not support the audio element.
+            </audio>
+            <div className="text-wrap" onClick={this.toggleText}>
+              {Content}
             </div>
-            <div className="end-time">{currentTrack.duration}</div>
-          </div>
-          <div ref={(ref) => (this.timelineRef = ref)} id="timeline">
-            <div ref={(ref) => (this.playheadRef = ref)} id="playhead"></div>
-            <div
-              ref={(ref) => (this.hoverPlayheadRef = ref)}
-              className="hover-playhead"
-              data-content="0:00"
-            ></div>
-          </div>
-          <div className="controls">
-            <button onClick={this.infoApp} className="info" />
-            <button onClick={this.backFive} className="back-5" />
-            <button onClick={this.playOrPause} className={playPause} />
-            <button onClick={this.forwardFive} className="forward-5" />
-            <button onClick={this.settingsOpen} className="settings" />
+            <div className="time">
+              <div className="current-time">{currentTime}</div>
+              <div className="playing-animation">
+                <span className="playing__bar playing__bar1" style={display} />
+                <span className="playing__bar playing__bar2" style={display} />
+                <span className="playing__bar playing__bar3" style={display} />
+              </div>
+              <div className="end-time">{currentTrack.duration}</div>
+            </div>
+            <div ref={(ref) => (this.timelineRef = ref)} id="timeline">
+              <div ref={(ref) => (this.playheadRef = ref)} id="playhead"></div>
+              <div
+                ref={(ref) => (this.hoverPlayheadRef = ref)}
+                className="hover-playhead"
+                data-content="0:00"
+              ></div>
+            </div>
+            <div className="controls">
+              <button onClick={this.infoApp} className="info" />
+              <button onClick={this.backFive} className="back-5" />
+              <button onClick={this.playOrPause} className={playPause} />
+              <button onClick={this.forwardFive} className="forward-5" />
+              <button onClick={this.settingsOpen} className="settings" />
+            </div>
           </div>
         </div>
         <div className="play-list">
@@ -432,6 +438,7 @@ class Player extends React.Component {
             <div
               key={key}
               onClick={() => this.clickAudio(key)}
+              id={"track" + key}
               className={
                 "track " +
                 (index === key && !pause ? "current-audio" : "") +
