@@ -6,9 +6,7 @@ import "../css/Player.scss";
 
 function importAllFiles(r) {
   let allFiles = {};
-  r.keys().map((item, index) => {
-    allFiles[item.replace("./", "")] = r(item);
-  });
+  r.keys().map((item, index) => (allFiles[item.replace("./", "")] = r(item)));
   return allFiles;
 }
 
@@ -91,8 +89,8 @@ class Player extends React.Component {
 
   timeUpdate = () => {
     const duration = this.playerRef.duration;
-    const timelineWidth =
-      this.timelineRef.offsetWidth - this.playheadRef.offsetWidth;
+    // const timelineWidth =
+    //   this.timelineRef.offsetWidth - this.playheadRef.offsetWidth;
     const playPercent = 100 * (this.playerRef.currentTime / duration);
     this.playheadRef.style.width = playPercent + "%";
     const currentTime = this.formatTime(parseInt(this.playerRef.currentTime));
@@ -105,7 +103,7 @@ class Player extends React.Component {
     const minutes = Math.floor(currentTime / 60);
     let seconds = Math.floor(currentTime % 60);
     seconds = seconds >= 10 ? seconds : "0" + (seconds % 60);
-    const formatTime = minutes + "0" + ":" + seconds;
+    const formatTime = `${minutes}0:${seconds}`;
     return formatTime;
   };
 
@@ -113,9 +111,9 @@ class Player extends React.Component {
     const index = localStorage.getItem("index")
       ? JSON.parse(localStorage.getItem("index"))
       : 0;
-    const { audioList } = this.state;
-    const currentTrack = audioList[index];
-    const audio = new Audio(currentTrack.audio);
+    // const { audioList } = this.state;
+    // const currentTrack = audioList[index];
+    // const audio = new Audio(currentTrack.audio);
     this.playerRef.load();
 
     const playItem = document.getElementById("track" + index);
@@ -171,9 +169,9 @@ class Player extends React.Component {
     const index = localStorage.getItem("index")
       ? JSON.parse(localStorage.getItem("index"))
       : 0;
-    const { audioList, pause } = this.state;
-    const currentTrack = audioList[index];
-    const audio = new Audio(currentTrack.audio);
+    const { pause } = this.state;
+    // const currentTrack = audioList[index];
+    // const audio = new Audio(currentTrack.audio);
     this.fetchText(index);
     if (!this.state.pause) {
       this.playerRef.play();
@@ -340,13 +338,6 @@ class Player extends React.Component {
     );
   };
 
-  toggleText = () => {
-    const { translation } = this.state;
-    this.setState({
-      translation: !translation,
-    });
-  };
-
   cardStyle = () => {
     const { translation, info } = this.state;
     if (info) {
@@ -357,6 +348,13 @@ class Player extends React.Component {
     } else {
       return "text-card-english";
     }
+  };
+
+  toggleText = () => {
+    const { translation } = this.state;
+    this.setState({
+      translation: !translation,
+    });
   };
 
   render() {
