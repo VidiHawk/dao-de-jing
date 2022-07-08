@@ -138,10 +138,6 @@ class Player extends React.Component {
     const newIndex = (index + 1) % audioList.length;
     this.fetchText(newIndex);
     localStorage.setItem("index", JSON.stringify(newIndex));
-    // this.setState({
-    //   index: newIndex,
-    // });
-    localStorage.setItem("index", JSON.stringify(newIndex));
     this.updatePlayer();
     if (pause) {
       this.playerRef.play();
@@ -381,7 +377,7 @@ class Player extends React.Component {
     // );
     // console.log("clickNplay: ", clickNplay);
     // console.log("stop: ", stop);
-    // console.log("index: ", index);
+    console.log("index: ", index);
     // const type = typeof index;
     // console.log("type: ", type);
     // console.log("local: ", JSON.parse(localStorage.getItem("index")));
