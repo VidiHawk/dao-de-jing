@@ -14,14 +14,20 @@ You can scroll down the chapter list below and choose any chapter you like. When
 Hi, I am Fabian de Mortier. I could not find any practical resource to learn the Dao de Jing while being on-the-go. So I decided to code this simple app. I showed it to some friends and they were interested to use it, so I deployed it online for the benefit of all. If you have any comments or suggestions to improve it, feel free to send me an <a href="mailto:info@fabiandemortier.com" style="color:#bbc2fc">email</a>. For more info about me, visit <a href="https://www.fabiandemortier.com" style="color:#bbc2fc">www.fabiandemortier.com</a>
 
 #### 4. About this Dao de Jing translation:
-Dao de Jing is one of my all-time favorite pieces of ancient Chinese philosophy. Not fully satisfied with existing translations, I am proposing here a new translation in an format that facilitates learning. The Chinese version is written in simplified characters for the sake of modernity.
+Dao de Jing is one of my all-time favorite pieces of ancient Chinese philosophy. Not fully satisfied with existing translations, I am proposing here a new translation in a format that facilitates learning. The Chinese version is written in simplified characters for the sake of modernity.
 
 While many existing translations digress into fanciful spiritual interpretations, I privileged a straight-forward and close-to-the-original-text translation. In order to make it easier for learners that have limited knowledge of Taoist concepts, I attempted to keep the translation as simple and as logical as possible. This will leave readers plenty of room to make their own interpretation.
 
 For those who want to dive deeper into the topic, <a href="https://terebess.hu/english/tao/_index.html" style="color:#bbc2fc">here is a database</a> with no less than 136 different translations of the Dao de Jing!
-
+ 
 #### 5. What is the Dao de Jing?
-The <b>Dao de Jing</b> is arguably among the most important pieces of text ever written in history. It is a beautiful classic poem of about 5,000 characters organized in 81 chapters. The Dao de Jing is traditionally credited to the 6th-century BC sage Lao Zi. However, certain details about the text's authorship, date of composition and date of compilation are still being debated among scholars. The Dao de Jing is a poetic attempt to describe the functioning of our universe. As part of this exercise, it explores the human condition and delves deep into the realm of consciousness. It proposes a series a virtues aimed at reaching ultimate wisdom, balance and peace within a world that ever appears to us as indomitable. What is so incredible about the Dao de Jing, is its unmatched depth of thought. It is arguably the most profound piece of text ever written, and it surprisingly continues to fit neatly into our modern and scientific perception of the universe. This suggests us that despites all human progress achieved in recent centuries; the depth of thought attained by ancient philosophers still remain unsurpassed. It then begs the fascinating question as to when and by whom it will be surpassed. What is certain, is that for over 2,500 years, the Dao de Jing has inspired generations upon generations, and it remains to this day an endless source of inspiration for millions of people around the world. 
+The <b>Dao de Jing</b> is arguably among the most important pieces of text ever written in history. It is a beautiful classic poem of about 5,000 characters organized in 81 chapters. The Dao de Jing is traditionally credited to the 6th-century BC sage Lao Zi. However, certain details about the text's authorship, date of composition and date of compilation are still being debated among scholars. 
+
+The Dao de Jing is a poetic attempt to describe the functioning of our universe. As part of this exercise, it explores the human condition and delves deep into the realm of consciousness. It proposes a series of virtues aimed at reaching ultimate wisdom, balance and peace within a world that ever appears to us as indomitable. 
+
+What is so incredible about the Dao de Jing, is its unmatched depth of thought. It is one the most profound piece of text ever written, and it surprisingly continues to fit neatly into our modern and scientific perception of the universe. This suggests us that despites all human progress achieved in recent centuries; the depth of thought attained by ancient philosophers still remain unsurpassed. It then begs the fascinating question as to when and by whom it will be surpassed. 
+
+For over 2,500 years, the Dao de Jing has inspired generations upon generations, and it remains to this day an endless source of inspiration for millions of people around the world. 
 
 #### 6. Dao de Jing or Tao te Ching?
 

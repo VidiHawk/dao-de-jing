@@ -2,7 +2,8 @@
 
 ### Bugs
 
-- Audio sometimes replays twice the same track. How to reproduce on iPhone 13:
+- Audio sometimes replays twice the same track. This is not happening on all browsers/devices.
+- How to reproduce on iPhone 13:
 - https://live.browserstack.com/dashboard#os=iOS&os_version=14.0&device_browser=safari&zoom_to_fit=true&full_screen=true&url=http%3A%2F%2Flocalhost%3A3000%2F&speed=1
 - click on the play button and wait until the end of the track
 - the same track plays again instead of the second track
