@@ -114,6 +114,7 @@ class Player extends React.Component {
     // const { audioList } = this.state;
     // const currentTrack = audioList[index];
     // const audio = new Audio(currentTrack.audio);
+    this.playerRef.src = allAudioFiles[`${index}.mp3`];
     this.playerRef.load();
 
     const playItem = document.getElementById("track" + index);
@@ -377,7 +378,7 @@ class Player extends React.Component {
     // );
     // console.log("clickNplay: ", clickNplay);
     // console.log("stop: ", stop);
-    console.log("index: ", index);
+    // console.log("index: ", index);
     // const type = typeof index;
     // console.log("type: ", type);
     // console.log("local: ", JSON.parse(localStorage.getItem("index")));
