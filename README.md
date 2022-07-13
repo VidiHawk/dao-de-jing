@@ -7,6 +7,8 @@
 - https://live.browserstack.com/dashboard#os=iOS&os_version=14.0&device_browser=safari&zoom_to_fit=true&full_screen=true&url=http%3A%2F%2Flocalhost%3A3000%2F&speed=1
 - click on the play button and wait until the end of the track
 - the same track plays again instead of the second track
+- when the player is on and keeps going through the audio files, at some point, the highlighted audio track gets out of view. Needs to scrollToView()
+- make the time disappear 2 sec after clicking on the timeline
 
 ### Next steps
 
