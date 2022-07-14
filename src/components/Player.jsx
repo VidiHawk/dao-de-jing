@@ -43,7 +43,7 @@ class Player extends React.Component {
 
   componentDidMount() {
     this.playerRef.addEventListener("timeupdate", this.timeUpdate, false);
-    this.playerRef.addEventListener("ended", this.pauseWhenTrackEnds, false);
+    this.playerRef.addEventListener("ended", this.whenTrackEnds, false);
     this.timelineRef.addEventListener("click", this.changeCurrentTime, false);
     this.timelineRef.addEventListener("mousemove", this.hoverTimeLine, false);
     this.timelineRef.addEventListener("mouseout", this.resetTimeLine, false);
@@ -52,7 +52,7 @@ class Player extends React.Component {
 
   componentWillUnmount() {
     this.playerRef.removeEventListener("timeupdate", this.timeUpdate);
-    this.playerRef.removeEventListener("ended", this.pauseWhenTrackEnds);
+    this.playerRef.removeEventListener("ended", this.whenTrackEnds);
     this.timelineRef.removeEventListener("click", this.changeCurrentTime);
     this.timelineRef.removeEventListener("mousemove", this.hoverTimeLine);
     this.timelineRef.removeEventListener("mouseout", this.resetTimeLine);
@@ -89,8 +89,6 @@ class Player extends React.Component {
 
   timeUpdate = () => {
     const duration = this.playerRef.duration;
-    // const timelineWidth =
-    //   this.timelineRef.offsetWidth - this.playheadRef.offsetWidth;
     const playPercent = 100 * (this.playerRef.currentTime / duration);
     this.playheadRef.style.width = playPercent + "%";
     const currentTime = this.formatTime(parseInt(this.playerRef.currentTime));
@@ -111,12 +109,8 @@ class Player extends React.Component {
     const index = localStorage.getItem("index")
       ? JSON.parse(localStorage.getItem("index"))
       : 0;
-    // const { audioList } = this.state;
-    // const currentTrack = audioList[index];
-    // const audio = new Audio(currentTrack.audio);
     this.playerRef.src = allAudioFiles[`${index}.mp3`];
     this.playerRef.load();
-
     const playItem = document.getElementById("track" + index);
     playItem.scrollIntoView({ block: "center", behavior: "smooth" });
   };
@@ -145,16 +139,23 @@ class Player extends React.Component {
     }
   };
 
-  pauseWhenTrackEnds = () => {
+  whenTrackEnds = () => {
     const stop = localStorage.getItem("stop")
       ? JSON.parse(localStorage.getItem("stop"))
+      : false;
+    const loop = localStorage.getItem("loop")
+      ? JSON.parse(localStorage.getItem("loop"))
       : false;
     if (stop) {
       this.playerRef.pause();
       this.setState({
         pause: false,
       });
-    } else {
+    }
+    if (loop && !stop) {
+      this.playerRef.play();
+    }
+    if (!stop && !loop) {
       this.nextTrack();
       this.setState({
         pause: true,
@@ -167,8 +168,6 @@ class Player extends React.Component {
       ? JSON.parse(localStorage.getItem("index"))
       : 0;
     const { pause } = this.state;
-    // const currentTrack = audioList[index];
-    // const audio = new Audio(currentTrack.audio);
     this.fetchText(index);
     if (!this.state.pause) {
       this.playerRef.play();
@@ -180,6 +179,8 @@ class Player extends React.Component {
       info: false,
       settings: false,
     });
+    const playItem = document.getElementById("track" + index);
+    playItem.scrollIntoView({ block: "center", behavior: "smooth" });
   };
 
   clickAudio = (key) => {
@@ -232,7 +233,7 @@ class Player extends React.Component {
     }
   };
 
-  settingsContent = (stop, clickNplay) => {
+  settingsContent = (stop, clickNplay, loop) => {
     return (
       <>
         <div className="text-card-settings">
@@ -243,12 +244,12 @@ class Player extends React.Component {
               <Switch
                 name="stop"
                 isOn={stop}
-                handleToggle={
-                  () => localStorage.setItem("stop", JSON.stringify(!stop))
-                  // this.setState({
-                  //   stop: !stop,
-                  // })
-                }
+                handleToggle={() => {
+                  localStorage.setItem("stop", JSON.stringify(!stop));
+                  if (!stop) {
+                    localStorage.setItem("loop", JSON.stringify(false));
+                  }
+                }}
               />
             </div>
           </div>
@@ -258,16 +259,27 @@ class Player extends React.Component {
               <Switch
                 name="clickNplay"
                 isOn={clickNplay}
-                handleToggle={
-                  () =>
-                    localStorage.setItem(
-                      "clickNplay",
-                      JSON.stringify(!clickNplay)
-                    )
-                  // this.setState({
-                  //   clickNplay: !clickNplay,
-                  // })
+                handleToggle={() =>
+                  localStorage.setItem(
+                    "clickNplay",
+                    JSON.stringify(!clickNplay)
+                  )
                 }
+              />
+            </div>
+          </div>
+          <div className="item-switch-container">
+            <div className="item">Play track in a loop</div>
+            <div className="switch">
+              <Switch
+                name="loop"
+                isOn={loop}
+                handleToggle={() => {
+                  localStorage.setItem("loop", JSON.stringify(!loop));
+                  if (!loop) {
+                    localStorage.setItem("stop", JSON.stringify(false));
+                  }
+                }}
               />
             </div>
           </div>
@@ -366,27 +378,24 @@ class Player extends React.Component {
     const clickNplay = localStorage.getItem("clickNplay")
       ? JSON.parse(localStorage.getItem("clickNplay"))
       : true;
+    const loop = localStorage.getItem("loop")
+      ? JSON.parse(localStorage.getItem("loop"))
+      : false;
     const currentTrack = audioList[index];
 
     if (!english) {
       this.fetchText(index);
     }
 
-    // console.log(
-    //   "clickNplay storage: ",
-    //   JSON.parse(localStorage.getItem("clickNplay"))
-    // );
-    // console.log("clickNplay: ", clickNplay);
-    // console.log("stop: ", stop);
-    // console.log("index: ", index);
-    // const type = typeof index;
-    // console.log("type: ", type);
+    console.log("stop: ", stop);
+    console.log("clickNplay: ", clickNplay);
+    console.log("loop: ", loop);
     // console.log("local: ", JSON.parse(localStorage.getItem("index")));
     // const type2 = typeof JSON.parse(localStorage.getItem("index"));
     // console.log("type: ", type2);
 
     const Content = settings
-      ? this.settingsContent(stop, clickNplay)
+      ? this.settingsContent(stop, clickNplay, loop)
       : this.htmlContent();
     const playPause = !pause ? "play" : "pause";
     const display = !pause ? { display: "none" } : { display: "inline-block" };
@@ -413,11 +422,11 @@ class Player extends React.Component {
             </div>
             <div ref={(ref) => (this.timelineRef = ref)} id="timeline">
               <div ref={(ref) => (this.playheadRef = ref)} id="playhead"></div>
-              <div
+              {/* <div
                 ref={(ref) => (this.hoverPlayheadRef = ref)}
                 className="hover-playhead"
                 data-content="0:00"
-              ></div>
+              ></div> */}
             </div>
             <div className="controls">
               <button onClick={this.infoApp} className="info" />
